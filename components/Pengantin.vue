@@ -5,7 +5,7 @@ import { KinesisContainer, KinesisElement } from 'vue-kinesis'
 <template>
   <div class="relative px-8">
       <div class="absolute w-full h-full inset-0 bg-buzz-purple/10">
-        <img src="~assets/img/cloud.jpg" class="w-full h-full opacity-30 object-cover" alt="" srcset="">
+        <img src="~assets/img/cloud.jpg" class="w-full h-full opacity-20 object-cover" alt="" srcset="">
       </div>
       <ClientOnly>
         <KinesisContainer
@@ -33,16 +33,16 @@ import { KinesisContainer, KinesisElement } from 'vue-kinesis'
             alt=""
             srcset=""
           />
-          <h6 class="mt-4 font-medium font-satisfy text-buzz-purple text-4xl">
+          <h6 class="mt-4 font-medium text-center font-satisfy text-buzz-purple text-3xl md:text-4xl">
             Lilla Anjani Birahmatika
           </h6>
-          <h6 class="text-md mt-1 px-12 text-center font-lora">
+          <h6 class="text-sm md:text-md mt-1 px-4 md:px-12 text-center font-lora">
             Putri Ketiga dari Bapak Pulung Suwandaru
           </h6>
-          <h6 class="text-md mt-1 px-12 text-center font-lora">
+          <h6 class="text-sm md:text-md mt-1 px-4 md:px-12 text-center font-lora">
             & Ibu Nuraini Pangewa
           </h6>
-          <h6 class="text-md italic font-lora">
+          <h6 class="text-sm md:text-md italic text-center font-lora">
             (Jl. Karangrejo Timur III Nomor 38, Surabaya)
           </h6>
         </KinesisElement>
@@ -67,18 +67,18 @@ import { KinesisContainer, KinesisElement } from 'vue-kinesis'
             alt=""
             srcset=""
           />
-          <h6 class="mt-4 font-medium font-satisfy text-buzz-purple text-4xl">
+          <h6 class="mt-4 font-medium font-satisfy text-buzz-purple text-center text-3xl md:text-4xl">
             Achmad Gabriel Glowdy
           </h6>
           <div class="">
-            <h6 class="text-md mt-1 px-12 text-center font-lora">
+            <h6 class="text-sm md:text-md mt-1 px-4 md:px-12 text-center font-lora">
               Putra Kedua dari Bapak Muhammad Dawam Ichsan
             </h6>
-            <h6 class="text-md mt-1 px-12 text-center font-lora">
+            <h6 class="text-sm md:text-md mt-1 px-4 md:px-12 text-center font-lora">
               & Ibu Listiyawati Suherini
             </h6>
           </div>
-          <h6 class="text-md italic font-lora">
+          <h6 class="text-sm md:text-md italic text-center font-lora">
             (Jl. Mastrip Gang VI / 6, Kecamatan Kanigaran, Probolinggo)
           </h6>
         </KinesisElement>

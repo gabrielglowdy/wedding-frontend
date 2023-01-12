@@ -1,10 +1,10 @@
 <template>
-  <div class="px-8">
+  <div class="">
     <div class="py-16 bg-blue-100">
       <h6 class="text-center font-medium font-lora text-xl px-6">
         Assalamu'alaikum Warahmatullahi Wabarakatuh
       </h6>
-      <h6 class="word-break text-center w-full mt-2 font-lora px-6">
+      <h6 class="text-sm md:text-base word-break text-center w-full mt-2 font-lora px-6">
         Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud untuk
         mengundang Bapak/Ibu/Sauadara/i untuk hadir pada acara pernikahan kami
         yang insya Allah akan dilaksanakan pada:
@@ -27,7 +27,7 @@
           <h6 class="text-3xl font-satisfy text-buzz-purple">10:00 - 12:30</h6>
         </div>
         <Line class="lg:hidden inline-block" />
-        <div class="flex flex-col items-center gap-3">
+        <div class="flex flex-col items-center gap-3 text-center">
           <h6 class="text-2xl font-satisfy mt-8 text-gray-800/80">Tempat</h6>
           <h6 class="text-3xl font-satisfy text-buzz-purple">
             Gedung BK3S Jatim, Surabaya

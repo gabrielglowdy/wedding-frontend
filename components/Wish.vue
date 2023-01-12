@@ -67,7 +67,7 @@ const messages = [
             hover:shadow-lg
             border border-buzz-purple
             rounded-lg
-            p-8
+            py-6 px-5 md:p-8
             pb-12
             flex flex-col
             gap-6
@@ -76,7 +76,7 @@ const messages = [
         >
           <h2 class="text-5xl text-center font-moon-dance">Ucapan & Harapan</h2>
           <Line class="" />
-          <div class="flex flex-col w-full px-8 gap-6">
+          <div class="flex flex-col w-full px-0 md:px-8 gap-6">
             <div class="flex flex-col gap-2">
               <label for="name" class="text-2xl font-satisfy">Nama</label>
               <input

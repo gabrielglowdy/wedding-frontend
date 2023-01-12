@@ -28,6 +28,7 @@ const openInvitation = () => {
   <div
     class="
       bg-dark
+      w-full
       h-screen
       px-8
       relative
@@ -100,9 +101,9 @@ const openInvitation = () => {
     </div>
     <div class="absolute inset-0">
       <div class="flex h-full items-center text-white">
-        <div class="flex flex-auto flex-col items-center gap-1">
+        <div class="flex flex-auto text-center flex-col items-center gap-1">
           <h6 class="font-moon-dance text-3xl">The Wedding of</h6>
-          <h2 class="font-montserrat text-6xl md:text-7xl">Lilla & Gabriel</h2>
+          <h2 class="font-montserrat text-5xl md:text-7xl">Lilla & Gabriel</h2>
           <h6 class="mt-2 font-dancing-script italic">
             To Infinity and Beyond
           </h6>

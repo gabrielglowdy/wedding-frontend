@@ -7,7 +7,7 @@ const dateDiff = date - dateNow;
 </script>
 
 <template>
-  <div class="py-8 px-8">
+  <div class="pb-8 px-8 md:px-16">
     <div class="bg-white p-8 border border-buzz-purple rounded-lg">
       <ClientOnly>
         <vue-countdown

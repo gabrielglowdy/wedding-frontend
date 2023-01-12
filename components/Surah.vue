@@ -34,7 +34,7 @@ Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum y
             type="translate"
             class="
               w-full
-              text-2xl
+              text-xl md:text-2xl
               italic
               font-dancing-script
               text-center
@@ -50,7 +50,7 @@ Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum y
             type="translate"
             class="
               w-full
-              text-4xl
+              text-2xl md:text-4xl
               font-moon-dance
               text-center
               break-words

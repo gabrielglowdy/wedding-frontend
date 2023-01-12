@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      translate: {
+        'screen': '100vh',
+      },
       fontFamily: {
         'moon-dance': ['Moon Dance', 'cursive'],
         'lora': ['Lora', 'sans-serif'],

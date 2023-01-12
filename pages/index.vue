@@ -55,7 +55,7 @@ const open = async () => {
   }
 
   // setTimeout(() => {
-  cover.value.classList.add("-translate-y-full");
+  cover.value.classList.add("-translate-y-screen");
   // }, 150);
 
   setTimeout(() => {
@@ -65,7 +65,7 @@ const open = async () => {
 </script>
 
 <template>
-  <div class="w-full overflow-hidden relative ">
+  <div class="w-full overflow-x-hidden relative">
     <div
       ref="cover"
       class="fixed z-50 cover-invitation inset-0 transition-all duration-1000"

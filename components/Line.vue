@@ -1,12 +1,11 @@
 <template>
   <div>
     <svg
-      width="411"
       height="11"
       viewBox="0 0 411 11"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      class="text-buzz-purple mx-auto"
+      class="text-buzz-purple mx-auto w-full max-w-lg"
     >
       <circle cx="205.5" cy="5.5" r="5" stroke="currentColor" />
       <path
