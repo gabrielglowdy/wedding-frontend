@@ -48,7 +48,7 @@ export default {
           :key="idx"
           class="rounded-lg overflow-hidden"
         >
-          <img class="w-full h-full" src="/img/woman.jpg" alt="" srcset="" />
+          <img class="w-full h-full" src="~assets/img/woman.jpg" alt="" srcset="" />
         </swiper-slide>
       </swiper>
     </div>
@@ -80,7 +80,7 @@ export default {
           :key="idx"
           class="rounded-lg overflow-hidden"
         >
-          <img class="w-full h-full" src="/img/woman.jpg" alt="" srcset="" />
+          <img class="w-full h-full" src="~assets/img/woman.jpg" alt="" srcset="" />
         </swiper-slide>
       </swiper>
     </div>

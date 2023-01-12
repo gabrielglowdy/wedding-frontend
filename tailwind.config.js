@@ -80,5 +80,11 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  variants: {
+    scrollbar: ['rounded']
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwind-scrollbar')({ nocompatible: true })
+  ],
 }

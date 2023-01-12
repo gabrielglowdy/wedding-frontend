@@ -141,7 +141,7 @@ const openInvitation = () => {
     </div>
     <audio id="openSfx">
       <source
-        src="/audio/To-Infinity-and-Beyond-sfx.mp3"
+        src="~assets/audio/To-Infinity-and-Beyond-sfx.mp3"
         type="audio/mpeg"
       />
       Your browser does not support the audio element.

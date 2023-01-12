@@ -10,7 +10,7 @@
         yang insya Allah akan dilaksanakan pada:
       </h6>
     </div>
-    <div class="min-h-screen bg-buzz-white px-4 py-16">
+    <div class="bg-buzz-white px-4 py-16">
       <div class="flex flex-col lg:grid lg:grid-cols-3 gap-3 items-center">
         <Line class="lg:hidden inline-block" />
         <div class="flex flex-col items-center gap-3">

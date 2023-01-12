@@ -37,7 +37,7 @@ const dateDiff = date - dateNow;
     </div>
     <div class="mt-6 mx-auto flex flex-col items-center">
       <a
-        href=""
+        href="https://calendar.google.com/calendar/render?action=TEMPLATE&dates=20230603T030000Z%2F20230603T053000Z&details=&location=Gedung%20BK3S%20Jatim%2C%20Jalan%20Raya%20Tenggilis%2C%20Tenggilis%20Mejoyo%2C%20Surabaya%20City%2C%20East%20Java&text=Undangan%20Pernikahan%20Lilla%20Gabriel"
         class="
           bg-buzz-purple
           py-3

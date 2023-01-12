@@ -1,5 +1,6 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-// import GoogleFontsModule from 
+// https://nuxt.com/docs/api/configuration/nuxt-config 
+
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -25,6 +26,9 @@ export default defineNuxtConfig({
       ]
     }
   },
+  ssr:false,
+  static: true,
+  
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {
@@ -32,7 +36,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  
+  build: {
+    rollupOptions: {
+      external: [
+        /^node:.*/,
+      ]
+    }
+  },
   googleFonts: {
     download: true,
     display: 'swap',
