@@ -19,6 +19,7 @@ const openInvitation = () => {
   setTimeout(() => {
     wantToOpenLeft.value = true;
   }, 1500);
+  emit("play");
   setTimeout(() => {
     emit("openInvitation");
   }, 2000);

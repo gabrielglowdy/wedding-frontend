@@ -27,6 +27,12 @@ const audioVolumeIn = (q) => {
   }
 };
 
+const playAudio = () => {
+  // setTimeout(() => {
+    musicBackground.value.play();
+  // }, 2000);
+}
+
 const toggleAudio = () => {
   if (isPlay.value) {
     musicBackground.value.pause();
@@ -45,14 +51,9 @@ const open = async () => {
 
   openInvitation.value = true;
 
-  if (musicBackground) {
-    setTimeout(() => {
-      console.log("AUDIO");
-      musicBackground.value.volume = 0.5;
-      musicBackground.value.play();
-      isPlay.value = true;
-    }, 200);
-  }
+  setTimeout(() => {
+    isPlay.value = true;
+  }, 200);
 
   // setTimeout(() => {
   cover.value.classList.add("-translate-y-screen");
@@ -68,13 +69,14 @@ const open = async () => {
   <div class="w-full overflow-x-hidden relative">
     <div
       ref="cover"
-      class="fixed z-50 cover-invitation inset-0 transition-all duration-1000"
+      class="fixed z-50 cover-invitation h-screen inset-0 transition-all duration-1000"
     >
       <InvitationCover
         class=""
         :open="openCover"
         :guest="invitation"
         @openInvitation="open"
+        @play="playAudio"
       />
     </div>
     <div ref="opening" class="flex flex-col" v-show="openInvitation">
@@ -88,7 +90,7 @@ const open = async () => {
       <Closing />
     </div>
     <div class="fixed bottom-6 z-40 right-4">
-      <audio loop ref="musicBackground">
+      <audio loop ref="musicBackground" id="music">
         <source
           src="~assets/audio/Randy_Newman_-_Youve_Got_a_Friend_in_Me.mp3"
           type="audio/mpeg"
@@ -98,7 +100,15 @@ const open = async () => {
       <div class="flex flex-col gap-3">
         <div
           @click="toggleAudio"
-          class="h-12 w-12 bg-buzz-purple border border-white text-white cursor-pointer rounded-full"
+          class="
+            h-12
+            w-12
+            bg-buzz-purple
+            border border-white
+            text-white
+            cursor-pointer
+            rounded-full
+          "
         >
           <span class="h-full flex items-center">
             <svg
