@@ -1,0 +1,55 @@
+<script setup>
+import VueCountdown from "@chenfengyuan/vue-countdown";
+
+const date = Date.parse("03 Jun 2023 10:00:00 GMT+7");
+const dateNow = new Date().getTime();
+const dateDiff = date - dateNow;
+</script>
+
+<template>
+  <div class="py-8 px-8">
+    <div class="bg-white p-8 border border-buzz-purple rounded-lg">
+      <ClientOnly>
+        <vue-countdown
+          :time="dateDiff"
+          v-slot="{ days, hours, minutes, seconds }"
+        >
+          <div class="grid grid-cols-4 gap-3 items-center font-lora">
+            <div class="flex flex-col gap-1 items-center">
+              <h5 class="text-3xl text-buzz-purple">{{ days }}</h5>
+              <h5>Hari</h5>
+            </div>
+            <div class="flex flex-col gap-1 items-center">
+              <h5 class="text-3xl text-buzz-purple">{{ hours }}</h5>
+              <h5>Jam</h5>
+            </div>
+            <div class="flex flex-col gap-1 items-center">
+              <h5 class="text-3xl text-buzz-purple">{{ minutes }}</h5>
+              <h5>Menit</h5>
+            </div>
+            <div class="flex flex-col gap-1 items-center">
+              <h5 class="text-3xl text-buzz-purple">{{ seconds }}</h5>
+              <h5>Detik</h5>
+            </div>
+          </div>
+        </vue-countdown>
+      </ClientOnly>
+    </div>
+    <div class="mt-6 mx-auto flex flex-col items-center">
+      <a
+        href=""
+        class="
+          bg-buzz-purple
+          py-3
+          font-lora
+          text-white
+          px-6
+          rounded-full
+          mx-auto
+        "
+      >
+        Simpan Kalender
+      </a>
+    </div>
+  </div>
+</template>
