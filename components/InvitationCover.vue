@@ -29,7 +29,7 @@ const openInvitation = () => {
     class="
       bg-dark
       h-screen
-      w-screen
+      px-8
       relative
       overflow-hidden
       group

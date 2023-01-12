@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen">
+  <div class="px-8">
     <div class="py-16 bg-blue-100">
       <h6 class="text-center font-medium font-lora text-xl px-6">
         Assalamu'alaikum Warahmatullahi Wabarakatuh

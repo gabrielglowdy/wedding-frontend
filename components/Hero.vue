@@ -19,7 +19,7 @@ onMounted(() => {
         from-blue-200
         to-blue-300
         h-screen
-        w-screen
+        px-8
         relative
         overflow-hidden
         group

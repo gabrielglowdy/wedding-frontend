@@ -3,7 +3,7 @@ import { KinesisContainer, KinesisElement } from 'vue-kinesis'
 
 </script>
 <template>
-  <div class="relative w-screen">
+  <div class="relative px-8">
       <div class="absolute w-full h-full inset-0 bg-buzz-purple/10">
         <img src="~assets/img/cloud.jpg" class="w-full h-full opacity-30 object-cover" alt="" srcset="">
       </div>

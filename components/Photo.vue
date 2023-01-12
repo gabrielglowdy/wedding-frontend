@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-  <div class="w-screen px-8 md:px-16 pb-8 flex flex-col gap-6">
+  <div class="px-8 md:px-16 pb-8 flex flex-col gap-6">
     <div class="">
       <swiper
         :modules="modules"
