@@ -8,33 +8,19 @@ Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum y
   <ClientOnly>
     <KinesisContainer
       event="scroll"
-      class="px-8 h-screen bg-buzz-purple/10 overflow-hidden relative"
+      class="px-8 py-24 bg-sage/10 overflow-hidden relative"
     >
-      <KinesisElement type="depth" class="absolute w-full h-full inset-0">
-        <img
-          src="~assets/img/mosque.jpg"
-          class="
-            hue-rotate-90
-            opacity-20
-            w-full
-            h-full
-            object-cover object-bottom
-          "
-          alt=""
-          srcset=""
-        />
-      </KinesisElement>
       <div
         class="relative flex items-center h-full w-full md:max-w-6xl mx-auto"
       >
-        <div class="flex flex-col mx-8 flex-auto gap-6">
+        <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col mx-8 flex-auto gap-6">
           <KinesisElement
             tag="p"
             :strength="80"
             type="translate"
             class="
               w-full
-              text-xl md:text-2xl
+              text-md
               italic
               font-dancing-script
               text-center
@@ -54,7 +40,7 @@ Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum y
               font-moon-dance
               text-center
               break-words
-              text-buzz-purple
+              text-sage-pale
             "
           >
             Ar-Rum Ayat 21

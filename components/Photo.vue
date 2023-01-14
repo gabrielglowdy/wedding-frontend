@@ -23,40 +23,47 @@ export default {
 </script>
 
 <template>
-  <div class="px-8 md:px-16 pb-8 flex flex-col gap-6">
-    <div class="">
+  <div class="px-8 md:px-16 pb-8 flex flex-col gap-4">
+    <div class="md:max-w-4xl md:mx-auto">
       <swiper
         :modules="modules"
         :slides-per-view="3"
-        :space-between="25"
+        :space-between="20"
         :breakpoints="{
           '768': {
             slidesPerView: 4,
-            spaceBetween: 40,
+            spaceBetween: 20,
           },
           '1024': {
-            slidesPerView: 5,
-            spaceBetween: 50,
+            slidesPerView: 4,
+            spaceBetween: 30,
           },
         }"
         class="text-buzz-purple"
-        navigation
-        :pagination="{ clickable: true }"
+        :pagination="{ 
+          clickable: true,
+          bulletActiveClass: 'active'
+        }"
       >
         <swiper-slide
           v-for="idx in 5"
           :key="idx"
           class="rounded-lg overflow-hidden"
         >
-          <img class="w-full h-full" src="~assets/img/woman.jpg" alt="" srcset="" />
+          <img
+            class="w-full h-full"
+            src="~assets/img/woman.jpg"
+            alt=""
+            srcset=""
+          />
         </swiper-slide>
       </swiper>
     </div>
-    <div>
+    <div class="md:max-w-4xl md:mx-auto md:mt-3">
       <swiper
         :modules="modules"
         :slidesPerView="2"
-        :spaceBetween="20"
+        :spaceBetween="15"
         class="text-buzz-purple"
         :breakpoints="{
           '640': {
@@ -64,23 +71,26 @@ export default {
             spaceBetween: 20,
           },
           '768': {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 40,
-          },
-          '1024': {
-            slidesPerView: 4,
-            spaceBetween: 50,
-          },
+          }
         }"
-        navigation
-        :pagination="{ clickable: true }"
+        :pagination="{ 
+          clickable: true, 
+          bulletActiveClass: 'active'
+         }"
       >
         <swiper-slide
           v-for="idx in 4"
           :key="idx"
           class="rounded-lg overflow-hidden"
         >
-          <img class="w-full h-full" src="~assets/img/woman.jpg" alt="" srcset="" />
+          <img
+            class="w-full h-full"
+            src="~assets/img/woman.jpg"
+            alt=""
+            srcset=""
+          />
         </swiper-slide>
       </swiper>
     </div>

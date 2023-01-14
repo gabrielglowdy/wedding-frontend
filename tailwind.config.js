@@ -65,12 +65,16 @@ module.exports = {
         }
       },
       colors: {
+        sage: {
+          DEFAULT: '#9DC183',
+          pale: '#77AA79'
+        },
         buzz: {
           purple: {
             DEFAULT: '#895DDA'
           },
           green: {
-            DEFAULT: '#82D43C'
+            DEFAULT: '#82D43C',
           },
           cream: '#F5C290',
           white: '#FBFBFB',

@@ -1,14 +1,33 @@
 <script setup>
+const route = useRoute();
+const runtimeConfig = useRuntimeConfig();
+
 const openInvitation = ref(false);
 const openCover = ref(true);
 const cover = ref();
+const opening = ref();
 const musicBackground = ref();
 const isInit = ref(false);
 const isPlay = ref(false);
+const isFirstPlay = ref(true);
+
+// Temp
+const guest = ref(false);
+
+// if (!route.params.guest) {
+//   throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
+// }
+
+// const { find } = useStrapi()
+// const { data:guest} = await find('guests', { filters: { slug: route.params.guest }})
+
+// if (guest.length == 0) {
+//   throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
+// }
 
 const invitation = ref({
-  name: "Guest",
-  slug: "guest",
+  name: guest && guest.length > 0 ? guest[0].attributes.name : "Ahmad Junaidi",
+  slug: guest && guest.length > 0 ? guest[0].attributes.slug : "ahmad-junaidi",
 });
 
 const audioVolumeIn = (q) => {
@@ -29,9 +48,9 @@ const audioVolumeIn = (q) => {
 
 const playAudio = () => {
   // setTimeout(() => {
-    musicBackground.value.play();
+  musicBackground.value.play();
   // }, 2000);
-}
+};
 
 const toggleAudio = () => {
   if (isPlay.value) {
@@ -39,8 +58,13 @@ const toggleAudio = () => {
   } else {
     musicBackground.value.play();
   }
+  isFirstPlay.value = false;
   isPlay.value = !isPlay.value;
 };
+
+const onEnded = () => {
+  // console.log('MUSIC END');
+}
 
 const open = async () => {
   // const audio = document.querySelector("#musicBackground");
@@ -53,11 +77,13 @@ const open = async () => {
 
   setTimeout(() => {
     isPlay.value = true;
+    isFirstPlay.value = false;
   }, 200);
 
-  // setTimeout(() => {
+  setTimeout(() => {
+    window.scrollTo({ top: opening.value.offsetTop, behavior: 'smooth' })
   cover.value.classList.add("-translate-y-screen");
-  // }, 150);
+  }, 150);
 
   setTimeout(() => {
     isInit.value = true;
@@ -66,21 +92,15 @@ const open = async () => {
 </script>
 
 <template>
-  <div class="w-full overflow-x-hidden relative">
+  <div class="w-full min-h-screen overflow-x-hidden relative">
     <div
       ref="cover"
       class="fixed z-50 cover-invitation h-screen inset-0 transition-all duration-1000"
     >
-      <InvitationCover
-        class=""
-        :open="openCover"
-        :guest="invitation"
-        @openInvitation="open"
-        @play="playAudio"
-      />
+      <Cover :guest="invitation" @openInvitation="open" @play="playAudio" />
     </div>
-    <div ref="opening" class="flex flex-col" v-show="openInvitation">
-      <Hero />
+    <div ref="opening" class="flex flex-col">
+      <Opening :guest="invitation" />
       <Surah />
       <Pengantin />
       <Place />
@@ -89,21 +109,21 @@ const open = async () => {
       <Wish />
       <Closing />
     </div>
-    <div class="fixed bottom-6 z-40 right-4">
-      <audio loop ref="musicBackground" id="music">
+    <div class="fixed bottom-6 z-40 right-4 lg:right-8">
+      <audio loop ref="musicBackground" @ended="onEnded" id="music">
         <source
-          src="~assets/audio/Randy_Newman_-_Youve_Got_a_Friend_in_Me.mp3"
+          src="~assets/audio/youve_got_a_friend_in_me-cavetown_cover.mp3"
           type="audio/mpeg"
         />
         Your browser does not support the audio element.
       </audio>
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-3" v-show="!isFirstPlay">
         <div
           @click="toggleAudio"
           class="
             h-12
             w-12
-            bg-buzz-purple
+            bg-sage
             border border-white
             text-white
             cursor-pointer
