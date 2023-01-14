@@ -110,7 +110,7 @@ const open = async () => {
     <div class="fixed bottom-6 z-40 right-4">
       <audio loop ref="musicBackground" id="music">
         <source
-          src="~assets/audio/Randy_Newman_-_Youve_Got_a_Friend_in_Me.mp3"
+          src="~assets/audio/youve_got_a_friend_in_me-cavetown_cover.mp3"
           type="audio/mpeg"
         />
         Your browser does not support the audio element.

@@ -9,10 +9,10 @@ const wantToOpenRight = ref(false);
 const wantToOpenLeft = ref(false);
 
 const openInvitation = () => {
-  const sfx = document.querySelector('#openSfx');
-  if (sfx) {
-    sfx.play()
-  }
+  // const sfx = document.querySelector('#openSfx');
+  // if (sfx) {
+  //   sfx.play()
+  // }
   setTimeout(() => {
     wantToOpenRight.value = true;
   }, 500);
@@ -141,12 +141,12 @@ const openInvitation = () => {
         </div>
       </div>
     </div>
-    <audio id="openSfx">
+    <!-- <audio id="openSfx">
       <source
         src="~assets/audio/To-Infinity-and-Beyond-sfx.mp3"
         type="audio/mpeg"
       />
       Your browser does not support the audio element.
-    </audio>
+    </audio> -->
   </div>
 </template>
