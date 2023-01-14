@@ -18,7 +18,7 @@ const openInvitation = () => {
 
 <template>
   <div class="relative w-screen h-screen bg-gray-900">
-    <div class="bg-gray-800">
+    <div class="w-full h-full bg-gray-900">
       <div
         :class="{ 'opacity-0': playVideo }"
         class="absolute inset-0 bg-sage/30"
