@@ -13,7 +13,7 @@
     >
       <div
         data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="150" data-aos-duration="750" data-aos-easing="ease-in-out"
-        class="absolute -top-36 -right-36 w-76 md:w-2/3 md:-right-80 h-64"
+        class="absolute -top-36 -left-44 w-76 md:w-2/3 md:-left-36 h-64"
       >
         <img
           src="~assets/img/flower/flower-1-alt.png"
