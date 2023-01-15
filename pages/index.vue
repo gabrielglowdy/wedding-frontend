@@ -25,32 +25,12 @@ const guest = ref(false);
 //   throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
 // }
 
+const isOpenPlaylist = ref(false);
+
 const invitation = ref({
   name: guest && guest.length > 0 ? guest[0].attributes.name : "Ahmad Junaidi",
   slug: guest && guest.length > 0 ? guest[0].attributes.slug : "ahmad-junaidi",
 });
-
-const audioVolumeIn = (q) => {
-  if (q.volume) {
-    var InT = 0;
-    var setVolume = 0.2; // Target volume level for new song
-    var speed = 0.005; // Rate of increase
-    q.volume = InT;
-    var eAudio = setInterval(function () {
-      InT += speed;
-      q.volume = InT.toFixed(1);
-      if (InT.toFixed(1) >= setVolume) {
-        clearInterval(eAudio);
-      }
-    }, 50);
-  }
-};
-
-const playAudio = () => {
-  // setTimeout(() => {
-  musicBackground.value.play();
-  // }, 2000);
-};
 
 const toggleAudio = () => {
   if (isPlay.value) {
@@ -62,9 +42,148 @@ const toggleAudio = () => {
   isPlay.value = !isPlay.value;
 };
 
+const isShuffle = ref(true);
+const toggleShuffle = () => {
+  isShuffle.value = !isShuffle.value;
+};
+
+const currentPlay = ref(0);
+const selectedCategory = ref("acoustic");
+const songs = {
+  acoustic: [
+    {
+      title: `You've Got a Friend In Me`,
+      artist: "Cavetown Cover",
+      url: "https://www.youtube.com/watch?v=OFpTa2IfXts",
+      src: "/audio/youve_got_a_friend_in_me-cavetown_cover.mp3",
+    },
+    {
+      title: "Stand By Me",
+      artist: "Boyce Avenue Cover",
+      url: "https://www.youtube.com/watch?v=dU2UUkYoeBs",
+      volume: 0.9,
+      src: "/audio/Stand_By_Me_Ben_E.King_Boyce_Avenue_acoustic_cover.mp3",
+    },
+    {
+      title: "Grow As We Go",
+      artist: "Ben Platt ft. Sara Bareilles",
+      url: "https://www.youtube.com/watch?v=mnrJTGT2u-s",
+      volume: 0.9,
+      src: "/audio/ben_platt_grow_as_we_go_ft_Sara_Bareilles.mp3",
+    },
+    {
+      title: "Mother Tongue",
+      artist: "Christina Rotondo Cover",
+      url: "https://www.youtube.com/watch?v=DSUtDN_jbSs",
+      volume: 0.9,
+      src: "/audio/bring-me-the-horizon-mother-tongue-acoustic-christina-rotondo.mp3",
+    },
+  ],
+  band: [
+    {
+      title: "Kamu",
+      artist: "(Coboy Junior - Camela Putri Cover)",
+      url: "https://www.youtube.com/watch?v=Ys6rvt4Cr78",
+      volume: 0.9,
+      src: "/audio/kamu-camela-putri.mp3",
+    },
+    {
+      title: "Widodari",
+      artist: "(Jagarta Cover)",
+      url: "https://www.youtube.com/watch?v=P01sIOmjJXM",
+      volume: 0.7,
+      src: "/audio/jagarta-widodari.mp3",
+    },
+    {
+      title: "Mind",
+      artist: "Skrillex & Diplo ft. Kai",
+      url: "https://www.youtube.com/watch?v=fDrTbLXHKu8",
+      volume: 0.7,
+      src: "/audio/skrillex-diplo_mind_ft_kai.mp3",
+    },
+    {
+      title: "Mother Tongue",
+      artist: "Bring Me The Horizon",
+      url: "https://www.youtube.com/watch?v=RZekS_waLUY",
+      volume: 0.7,
+      src: "/audio/bring_me_the_horizon_mother_tongue.mp3",
+    },
+  ],
+};
+const playAudio = () => {
+  isPlay.value = true;
+  musicBackground.value.play();
+};
+
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+};
+
+const nextPlay = () => {
+  currentPlay.value =
+    currentPlay.value + 1 < songs[selectedCategory.value].length
+      ? currentPlay.value + 1
+      : 0;
+  selectMusic(currentPlay.value);
+  playAudio();
+};
+
+const mixPlay = () => {
+  const tmpIndex = getRandomInt(songs[selectedCategory.value].length);
+  currentPlay.value =
+    tmpIndex != currentPlay.value
+      ? tmpIndex
+      : currentPlay.value + 1 < songs[selectedCategory.value].length
+      ? currentPlay.value + 1
+      : 0;
+  selectMusic(currentPlay.value);
+  playAudio();
+};
+
+const selectMusic = (index) => {
+  musicBackground.value.src = songs[selectedCategory.value][index].src;
+  musicBackground.value.volume = songs[selectedCategory.value][index].volume
+    ? songs[selectedCategory.value][index].volume
+    : 1;
+  currentPlay.value = index;
+};
+
+const selectSong = (index) => {
+  selectMusic(index);
+  playAudio();
+};
+
+const playNewMusic = (type) => {
+  if (type == "muted") {
+    return;
+  }
+
+  selectedCategory.value = type == "band" ? type : "acoustic";
+  selectMusic(getRandomInt(songs[selectedCategory.value].length));
+
+  setTimeout(() => {
+    isPlay.value = true;
+    isFirstPlay.value = false;
+  }, 200);
+
+  playAudio();
+};
+
 const onEnded = () => {
-  // console.log('MUSIC END');
-}
+  if (isShuffle.value) {
+    mixPlay();
+  }else{
+    nextPlay();
+  }
+};
+
+const openPlaylist = () => {
+  isOpenPlaylist.value = true;
+};
+
+const closePlaylist = () => {
+  isOpenPlaylist.value = false;
+};
 
 const open = async () => {
   // const audio = document.querySelector("#musicBackground");
@@ -74,15 +193,9 @@ const open = async () => {
   }
 
   openInvitation.value = true;
-
   setTimeout(() => {
-    isPlay.value = true;
-    isFirstPlay.value = false;
-  }, 200);
-
-  setTimeout(() => {
-    window.scrollTo({ top: opening.value.offsetTop, behavior: 'smooth' })
-  cover.value.classList.add("-translate-y-screen");
+    window.scrollTo({ top: opening.value.offsetTop, behavior: "smooth" });
+    cover.value.classList.add("-translate-y-screen");
   }, 150);
 
   setTimeout(() => {
@@ -95,36 +208,82 @@ const open = async () => {
   <div class="w-full min-h-screen overflow-x-hidden relative">
     <div
       ref="cover"
-      class="fixed z-50 cover-invitation h-screen inset-0 transition-all duration-1000"
+      class="
+        fixed
+        z-50
+        cover-invitation
+        h-screen
+        inset-0
+        transition-all
+        duration-1000
+      "
     >
-      <Cover :guest="invitation" @openInvitation="open" @play="playAudio" />
+      <Cover :guest="invitation" @openInvitation="open" @play="playNewMusic" />
     </div>
     <div ref="opening" class="flex flex-col">
       <Opening :guest="invitation" />
       <Surah />
-      <Pengantin />
+      <Pengantin data-scroll />
       <Place />
       <Photo />
       <Date />
       <Wish />
       <Closing />
     </div>
-    <div class="fixed bottom-6 z-40 right-4 lg:right-8">
-      <audio loop ref="musicBackground" @ended="onEnded" id="music">
+    <div class="fixed bottom-12 z-40 right-4 lg:right-8">
+      <audio ref="musicBackground" @ended="onEnded" id="music">
         <source
-          src="~assets/audio/youve_got_a_friend_in_me-cavetown_cover.mp3"
+          :src="songs[selectedCategory][currentPlay].src"
           type="audio/mpeg"
         />
         Your browser does not support the audio element.
       </audio>
       <div class="flex flex-col gap-3" v-show="!isFirstPlay">
         <div
+          @click="openPlaylist"
+          class="
+            cursor-pointer
+            bg-white
+            text-sage-pale
+            border-sage border
+            p-3
+            rounded-full
+            h-12
+            md:h-16
+            w-12
+            md:w-16
+          "
+        >
+          <List />
+        </div>
+        <div
+          @click="toggleShuffle"
+          class="
+            cursor-pointer
+            border
+            p-3
+            rounded-full
+            h-12
+            md:h-16
+            w-12
+            md:w-16
+          "
+          :class="{
+            'bg-sage-pale border-sage text-white': isShuffle,
+            'bg-white border-sage text-sage-pale': !isShuffle,
+          }"
+        >
+          <Shuffle />
+        </div>
+        <div
           @click="toggleAudio"
           class="
             h-12
+            md:h-16
             w-12
-            bg-sage
-            border border-white
+            md:w-16
+            bg-sage-pale
+            border border-white/30
             text-white
             cursor-pointer
             rounded-full
@@ -138,7 +297,7 @@ const open = async () => {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-6 h-6 m-auto"
+              class="w-6 h-6 md:w-8 md:h-8 m-auto"
             >
               <path
                 stroke-linecap="round"
@@ -165,5 +324,32 @@ const open = async () => {
         </div>
       </div>
     </div>
+    <SidePlaylist
+      @select="selectSong"
+      :songs="songs[selectedCategory]"
+      :selectedSong="currentPlay"
+      :show="isOpenPlaylist"
+      @close="closePlaylist"
+    />
+    <transition name="fade">
+      <div
+        v-show="isPlay"
+        class="
+          fixed
+          bottom-0
+          z-40
+          inset-x-0
+          text-white/90
+          px-4
+          py-1
+          bg-sage-pale/80
+        "
+      >
+        <span>
+          {{ songs[selectedCategory][currentPlay].title }} -
+          {{ songs[selectedCategory][currentPlay].artist }}
+        </span>
+      </div>
+    </transition>
   </div>
 </template>

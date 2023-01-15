@@ -24,7 +24,7 @@ export default {
 
 <template>
   <div class="px-8 md:px-16 pb-8 flex flex-col gap-4">
-    <div class="md:max-w-4xl md:mx-auto">
+    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="150" data-aos-duration="450" data-aos-easing="ease-in-out" class="md:max-w-4xl md:mx-auto">
       <swiper
         :modules="modules"
         :slides-per-view="3"
@@ -59,7 +59,7 @@ export default {
         </swiper-slide>
       </swiper>
     </div>
-    <div class="md:max-w-4xl md:mx-auto md:mt-3">
+    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="750" data-aos-easing="ease-in-out" class="md:max-w-4xl md:mx-auto md:mt-3">
       <swiper
         :modules="modules"
         :slidesPerView="2"

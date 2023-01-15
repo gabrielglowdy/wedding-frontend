@@ -3,6 +3,29 @@ const props = defineProps({
   guest: Object,
 });
 
+const selectedMusic = ref(1);
+const musicCategories = [
+  {
+    name:'Mati',
+    label: "🤫",
+    value: "muted",
+  },
+  {
+    name:'Akustik',
+    label: "🎸",
+    value: "acoustic",
+  },
+  {
+    name:'Band',
+    label: "💃🥁",
+    value: "band",
+  },
+];
+
+const selectMusic = (index) => {
+  selectedMusic.value = index
+}
+
 const playVideo = ref(false);
 
 const emit = defineEmits();
@@ -11,7 +34,7 @@ const wantToOpenRight = ref(false);
 const wantToOpenLeft = ref(false);
 
 const openInvitation = () => {
-  emit("play");
+  emit("play", musicCategories[selectedMusic.value].value);
   emit("openInvitation");
 };
 </script>
@@ -19,10 +42,7 @@ const openInvitation = () => {
 <template>
   <div class="relative w-screen h-screen bg-gray-900">
     <div class="w-full h-full bg-sage/30">
-      <div
-        :class="{ 'opacity-0': playVideo }"
-        class="absolute inset-0"
-      >
+      <div :class="{ 'opacity-0': playVideo }" class="absolute inset-0">
         <img
           src="~assets/img/bg-2.jpg"
           class="
@@ -54,10 +74,10 @@ const openInvitation = () => {
         </video>
       </div>
       <div class="absolute inset-0 flex items-center flex-col top-1/3 -mt-32">
-        <h2 class="inset-x-0 text-xl font-lora text-white text-center">
+        <h2 class="inset-x-0 text-lg font-lora text-white text-center">
           We invite you to
         </h2>
-        <h2 class="inset-x-0 text-xl font-lora text-white text-center">
+        <h2 class="inset-x-0 text-lg font-lora text-white text-center">
           Celebrate our Wedding
         </h2>
         <Logo class="text-white mt-6 h-24 object-cover" />
@@ -66,17 +86,17 @@ const openInvitation = () => {
             Lilla & Gabriel
           </h2>
         </div>
-        <div v-if="guest" class="flex flex-col items-center mt-12">
+        <div v-if="guest" class="flex flex-col items-center mt-6">
           <div class="text-white">
             <h6>Kepada Yth:</h6>
           </div>
           <div class="text-white mt-3">
-            <h6 class="text-2xl">{{ guest.name }}</h6>
+            <h6 class="text-4xl font-moon-dance">{{ guest.name }}</h6>
           </div>
           <a
             @click.prevent="openInvitation"
             class="
-              mt-12
+              mt-6
               bg-sage
               cursor-pointer
               duration-1000
@@ -110,6 +130,16 @@ const openInvitation = () => {
               <span class="my-auto"> Buka Undangan </span>
             </span>
           </a>
+          <div class="mt-4 flex flex-col gap-3">
+            <div class="flex items-center justify-center gap-2">
+              <div v-for="(item, index) in musicCategories" :key="index">
+                <div class="p-2 rounded-full cursor-pointer" @click="selectMusic(index)" :class="{'bg-sage' : index == selectedMusic, 'bg-white/80 ': index != selectedMusic}">
+                  <h6 class="text-sm">{{ item.label }}</h6>
+                </div>
+              </div>
+            </div>
+            <!-- <h6 class="text-white/90 font-lora text-center">Musik: {{ musicCategories[selectedMusic].name }}</h6> -->
+          </div>
         </div>
       </div>
     </div>

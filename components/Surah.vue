@@ -1,23 +1,17 @@
 <script setup>
-import { KinesisContainer, KinesisElement } from "vue-kinesis";
 
 const surah = `"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri,supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang.
 Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."`;
 </script>
 <template>
-  <ClientOnly>
-    <KinesisContainer
-      event="scroll"
+    <div
       class="px-8 py-24 bg-sage/10 overflow-hidden relative"
     >
       <div
         class="relative flex items-center h-full w-full md:max-w-6xl mx-auto"
       >
         <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col mx-8 flex-auto gap-6">
-          <KinesisElement
-            tag="p"
-            :strength="80"
-            type="translate"
+          <p
             class="
               w-full
               text-md
@@ -29,11 +23,8 @@ Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum y
             "
           >
             {{ surah }}
-          </KinesisElement>
-          <KinesisElement
-            tag="p"
-            :strength="80"
-            type="translate"
+          </p>
+          <p
             class="
               w-full
               text-2xl md:text-4xl
@@ -44,9 +35,8 @@ Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum y
             "
           >
             Ar-Rum Ayat 21
-          </KinesisElement>
+          </p>
         </div>
       </div>
-    </KinesisContainer>
-  </ClientOnly>
+    </div>
 </template>

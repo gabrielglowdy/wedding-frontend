@@ -1,21 +1,17 @@
-<script setup>
-import { KinesisContainer, KinesisElement } from "vue-kinesis";
-</script>
 <template>
-  <ClientOnly>
-    <KinesisContainer event="scroll" class="relative">
-      <KinesisElement type="rotate" transformOrigin="bottom left" :strength="-25" class="absolute -left-8 top-64">
+    <div class="relative">
+      <div class="absolute -left-8 top-64">
         <img class="h-56 object-scale-down " src="~assets/img/flower/flower-13.png" alt="" srcset="">
-      </KinesisElement>
-      <KinesisElement type="rotate" transformOrigin="bottom right" :strength="45" class="absolute -right-2 top-96">
+      </div>
+      <div class="absolute -right-2 top-96">
         <img class="h-56 object-scale-down mt-12" src="~assets/img/flower/flower-10.png" alt="" srcset="">
-      </KinesisElement>
+      </div>
       <div class="py-16 bg-sage/5">
-        <h6 data-aos="fade-up" data-aos-delay="300" class="text-center font-medium font-moon-dance text-2xl md:text-3xl px-6 text-dark/70">
+        <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="300" class="text-center font-medium font-moon-dance text-2xl md:text-3xl px-6 text-dark/70">
           Assalamu'alaikum Warahmatullahi Wabarakatuh
         </h6>
         <h6
-          data-aos="fade-up" data-aos-delay="400"
+          data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="400"
           class="
             text-xs
             md:text-base
@@ -38,27 +34,27 @@ import { KinesisContainer, KinesisElement } from "vue-kinesis";
       <div class=""></div>
       <div class="relative px-4 py-16">
         <div class="flex flex-col lg:grid lg:grid-cols-3 gap-3 items-center">
-          <Line data-aos="fade-up" data-aos-delay="250" data-aos-duration="600" data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
+          <Line data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="250" data-aos-duration="600" data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
           <div class="flex flex-col items-center gap-3">
-            <h6 data-aos="fade-up" data-aos-delay="450" data-aos-duration="600" data-aos-easing="ease-in-out" class="text-4xl font-moon-dance text-gray-800/80">Sabtu</h6>
-            <h6 data-aos="fade-up" data-aos-delay="650" data-aos-duration="600" data-aos-easing="ease-in-out" class="text-4xl font-satisfy text-sage-pale">3 Juni 2023</h6>
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="600" data-aos-easing="ease-in-out" class="text-4xl font-moon-dance text-gray-800/80">Sabtu</h6>
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="600" data-aos-easing="ease-in-out" class="text-4xl font-satisfy text-sage-pale">3 Juni 2023</h6>
           </div>
-          <Line data-aos="fade-up" data-aos-delay="850" data-aos-duration="500" data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
+          <Line data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="850" data-aos-duration="500" data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
           <div class="flex-auto flex flex-col items-center gap-3">
-            <h6 data-aos="fade-up" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-3 text-gray-800/80">
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-3 text-gray-800/80">
               Akad Nikah
             </h6>
-            <h6 data-aos="fade-up" data-aos-delay="450" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-sage-pale">07:00 - 8:30</h6>
-            <h6 data-aos="fade-up" data-aos-delay="650" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-8 text-gray-800/80">Resepsi</h6>
-            <h6 data-aos="fade-up" data-aos-delay="850" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-sage-pale">10:00 - 12:30</h6>
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-sage-pale">07:00 - 8:30</h6>
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-8 text-gray-800/80">Resepsi</h6>
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="850" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-sage-pale">10:00 - 12:30</h6>
           </div>
-          <Line data-aos="fade-up" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
+          <Line data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
           <div class="flex flex-col items-center gap-3 text-center">
-            <h6 data-aos="fade-up" data-aos-delay="450" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-2xl mt-8 font-satisfy text-gray-800/80">Tempat</h6>
-            <h6 data-aos="fade-up" data-aos-delay="650" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-sage-pale">
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-2xl mt-8 font-satisfy text-gray-800/80">Tempat</h6>
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-sage-pale">
               Gedung BK3S Jatim, Surabaya
             </h6>
-            <h6 data-aos="fade-up" data-aos-delay="750" data-aos-duration="500" data-aos-easing="ease-in-out"
+            <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="750" data-aos-duration="500" data-aos-easing="ease-in-out"
               class="
                 text-sm text-center
                 break-words
@@ -73,6 +69,7 @@ import { KinesisContainer, KinesisElement } from "vue-kinesis";
         </div>
         <div class="flex items-center w-full flex-col mt-8">
           <a
+            data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="150" data-aos-duration="750" data-aos-easing="ease-in-out"
             href="https://goo.gl/maps/M8y4r63M6KQMqqwg7"
             class="
               bg-sage-pale
@@ -105,6 +102,5 @@ import { KinesisContainer, KinesisElement } from "vue-kinesis";
           </a>
         </div>
       </div>
-    </KinesisContainer>
-  </ClientOnly>
+    </div>
 </template>
