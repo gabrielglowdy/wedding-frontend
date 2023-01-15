@@ -41,7 +41,7 @@ const selectSong = (index) => {
           class="relative w-full h-screen bg-gray-900/40"
         ></div>
       </div>
-      <div class="fixed inset-y-0 z-50" :class="{ 'w-full md:w-5/6 right-0': isShow, 'w-0 -right-12': !isShow }">
+      <div class="fixed inset-y-0 z-50" :class="{ 'w-full md:w-1/3 right-0': isShow, 'w-0 -right-12': !isShow }">
         <div
           class="
             absolute
@@ -56,7 +56,7 @@ const selectSong = (index) => {
             w-full
           "
         >
-          <div @click="close" class="mb-6">
+          <div @click="close" class="mb-6 cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
