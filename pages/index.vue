@@ -249,9 +249,7 @@ const open = async () => {
             p-3
             rounded-full
             h-12
-            md:h-16
             w-12
-            md:w-16
           "
         >
           <List />
@@ -264,9 +262,7 @@ const open = async () => {
             p-3
             rounded-full
             h-12
-            md:h-16
             w-12
-            md:w-16
           "
           :class="{
             'bg-sage-pale border-sage text-white': isShuffle,
@@ -279,9 +275,7 @@ const open = async () => {
           @click="toggleAudio"
           class="
             h-12
-            md:h-16
             w-12
-            md:w-16
             bg-sage-pale
             border border-white/30
             text-white
