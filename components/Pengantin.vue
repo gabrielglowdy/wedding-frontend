@@ -11,17 +11,6 @@
     <div
       class="relative flex flex-col lg:flex-row gap-4 items-center py-16 mx-auto"
     >
-      <div
-        data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="150" data-aos-duration="750" data-aos-easing="ease-in-out"
-        class="absolute -top-36 -left-44 w-76 md:w-2/3 md:-left-36 h-64"
-      >
-        <img
-          src="~assets/img/flower/flower-1-alt.png"
-          class="w-full h-full object-scale-down"
-          alt=""
-          srcset=""
-        />
-      </div>
       <div class="flex flex-col items-center flex-auto">
         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="relative">
           <div

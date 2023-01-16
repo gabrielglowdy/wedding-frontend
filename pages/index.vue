@@ -172,7 +172,7 @@ const playNewMusic = (type) => {
 const onEnded = () => {
   if (isShuffle.value) {
     mixPlay();
-  }else{
+  } else {
     nextPlay();
   }
 };
@@ -196,6 +196,7 @@ const open = async () => {
   setTimeout(() => {
     window.scrollTo({ top: opening.value.offsetTop, behavior: "smooth" });
     cover.value.classList.add("-translate-y-screen");
+    cover.value.classList.add("opacity-0");
   }, 150);
 
   setTimeout(() => {
@@ -227,10 +228,11 @@ const open = async () => {
       <Place />
       <Photo />
       <Date />
+      <Rsvp :guest="invitation" />
       <Wish />
       <Closing />
     </div>
-    <div class="fixed bottom-12 z-40 right-4 lg:right-8">
+    <div class="fixed bottom-12 z-40 right-3">
       <audio ref="musicBackground" @ended="onEnded" id="music">
         <source
           :src="songs[selectedCategory][currentPlay].src"
@@ -263,13 +265,16 @@ const open = async () => {
             rounded-full
             h-12
             w-12
+            bg-white
+            border-sage-pale
+            text-sage-pale
           "
-          :class="{
-            'bg-sage-pale border-sage text-white': isShuffle,
-            'bg-white border-sage text-sage-pale': !isShuffle,
-          }"
         >
           <Shuffle />
+          <div
+            v-if="isShuffle"
+            class="w-1 h-1 bg-sage-pale mx-auto rounded-full"
+          ></div>
         </div>
         <div
           @click="toggleAudio"
@@ -323,6 +328,11 @@ const open = async () => {
       :songs="songs[selectedCategory]"
       :selectedSong="currentPlay"
       :show="isOpenPlaylist"
+      :isShuffle="isShuffle"
+      :isPlay="isPlay"
+      @toggle:shuffle="toggleShuffle"
+      @toggle:play="toggleAudio"
+      @next="onEnded"
       @close="closePlaylist"
     />
     <transition name="fade">

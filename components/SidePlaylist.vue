@@ -5,6 +5,8 @@ const props = defineProps({
   show: Boolean,
   songs: Array,
   selectedSong: Number,
+  isShuffle: Boolean,
+  isPlay: Boolean,
 });
 
 const isShow = ref(false);
@@ -31,6 +33,18 @@ const selectSong = (index) => {
   emit("select", index);
   close();
 };
+
+const toggleShuffle = () => {
+  emit("toggle:shuffle");
+};
+
+const togglePlay = () => {
+  emit("toggle:play");
+};
+
+const nextPlay = () => {
+  emit("next");
+};
 </script>
 <template>
   <transition name="fade">
@@ -41,7 +55,10 @@ const selectSong = (index) => {
           class="relative w-full h-screen bg-gray-900/40"
         ></div>
       </div>
-      <div class="fixed inset-y-0 z-50" :class="{ 'w-full md:w-1/3 right-0': isShow, 'w-0 -right-12': !isShow }">
+      <div
+        class="fixed inset-y-0 z-50"
+        :class="{ 'w-full md:w-1/3 right-0': isShow, 'w-0 -right-12': !isShow }"
+      >
         <div
           class="
             absolute
@@ -52,29 +69,141 @@ const selectSong = (index) => {
             rounded-none
             md:rounded-l-xl
             p-8
-            h-full
+            h-screen
             w-full
+            flex flex-col
           "
         >
           <div @click="close" class="mb-6 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </div>
           <div>
-            <h6 class="text-xl font-moon-dance mb-2">Playlist</h6>
+            <h6 class="text-2xl text-center font-lora mb-3">Playlist</h6>
+            <Line class="mb-8" />
           </div>
-          <div class="flex flex-col">
+          <div
+            class="
+              flex flex-col flex-auto
+              gap-1
+              overflow-y-scroll
+              mb-6
+              scrollbar-thin
+              scrollbar-track-sage/10
+              scrollbar-thumb-sage-pale/80
+              scrollbar-thumb-rounded-full
+            "
+          >
             <div
-              class="py-1 flex items-center cursor-pointer"
+              class="py-2 px-3 rounded-md flex items-center cursor-pointer"
+              :class="{ 'bg-sage/20 text-sage-pale': index == selectedSong }"
               v-for="(song, index) in songs"
               :key="index"
             >
-              <div class="">
-                <h6 @click="selectSong(index)" :class="{ 'text-sage-pale': index == selectedSong }">
-                  {{ song.title }} - {{ song.artist }}
+              <div class="flex flex-col w-full" @click="selectSong(index)">
+                <h6 class="text-lg font-lora">{{ song.title }}</h6>
+                <h6
+                  class="font-lora text-sm"
+                  :class="{
+                    'text-sage-pale/70': index == selectedSong,
+                    'text-gray-400': index != selectedSong,
+                  }"
+                >
+                  {{ song.artist }}
                 </h6>
               </div>
+            </div>
+          </div>
+          <div class="flex gap-3 items-center justify-center">
+            <div
+              @click="toggleShuffle"
+              class="
+                cursor-pointer
+                border
+                p-3
+                rounded-full
+                h-12
+                w-12
+                border-sage-pale
+                text-sage-pale
+              "
+            >
+              <Shuffle />
+              <div
+                v-if="isShuffle"
+                class="w-1 h-1 bg-sage-pale mx-auto rounded-full"
+              ></div>
+            </div>
+            <div
+              @click="togglePlay"
+              class="
+                h-12
+                w-12
+                text-sage-pale
+                border border-sage-pale
+                cursor-pointer
+                rounded-full
+              "
+            >
+              <span class="h-full flex items-center">
+                <svg
+                  v-if="isPlay"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 md:w-8 md:h-8 m-auto"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 5.25v13.5m-7.5-13.5v13.5"
+                  />
+                </svg>
+
+                <svg
+                  v-else
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-7 h-7 m-auto"
+                >
+                  <path
+                    d="M9.525 18.025C9.19167 18.2417 8.854 18.254 8.512 18.062C8.17067 17.8707 8 17.575 8 17.175V6.825C8 6.425 8.17067 6.129 8.512 5.937C8.854 5.74567 9.19167 5.75834 9.525 5.975L17.675 11.15C17.975 11.35 18.125 11.6333 18.125 12C18.125 12.3667 17.975 12.65 17.675 12.85L9.525 18.025Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              @click="nextPlay"
+              class="
+                cursor-pointer
+                border
+                p-2
+                rounded-full
+                h-12
+                w-12
+                text-sage-pale
+                border-sage-pale
+              "
+            >
+              <Next />
             </div>
           </div>
         </div>

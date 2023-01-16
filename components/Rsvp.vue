@@ -1,0 +1,140 @@
+<script setup>
+import { Switch, RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
+
+const props = defineProps({
+  guest: Object,
+});
+
+const form = ref({
+  name: props.guest.name ? props.guest.name : "",
+  can_come: false,
+  person: 1
+});
+
+const person_array = [1, 2];
+</script>
+<template>
+  <div class="min-h-screen w-screen relative py-16 px-8">
+    <div class="absolute inset-0">
+      <img
+        src="~assets/img/flower/bg-flower.jpg"
+        class="w-full opacity-30 h-full object-cover"
+        alt=""
+      />
+    </div>
+    <div class="absolute -left-16 -top-6">
+      <img class="h-56 object-scale-down " src="~assets/img/flower/flower-12.png" alt="" srcset="">
+    </div>
+    <div class="relative h-full">
+      <div
+        class="
+          h-full
+          bg-white
+          shadow-md
+          max-w-xl
+          mx-auto
+          transition-all
+          duration-300
+          hover:shadow-lg
+          border border-sage-pale
+          rounded-lg
+          py-6
+          px-5
+          md:p-8
+          pb-12
+          md:pb-12
+          flex flex-col
+          gap-6
+          items-center
+        "
+      >
+        <div class="flex flex-col gap-2">
+          <h2 class="text-5xl text-center font-moon-dance text-gray-800/80">
+            RSVP
+          </h2>
+          <h6 class="font-lora text-center text-gray-800/80 text-xs md:text-sm max-w-lg">
+            Bantu kami mempersiapkan jamuan yang hangat untuk anda semua dengan
+            mengirimkan konfirmasi kehadiran melalui form berikut ini
+          </h6>
+        </div>
+        <Line class="" />
+        <div class="flex flex-col w-full px-0 md:px-8 gap-6">
+          <div class="flex flex-col gap-2">
+            <label for="name" class="text-lg font-lora text-gray-800/80"
+              >Nama</label
+            >
+            <input
+              id="name"
+              type="text"
+              disabled
+              v-model="form.name"
+              class="
+                border
+                rounded-md
+                bg-gray-100
+                text-gray-500
+                focus:border-sage-pale focus:ring-sage-pale
+                border-gray-800/20
+              "
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="kehadiran" class="text-lg font-lora text-gray-800/80"
+              >Konfirmasi Kehadiran</label
+            >
+            <div class="flex gap-2">
+              <Switch
+                v-model="form.can_come"
+                :class="form.can_come ? 'bg-sage-pale' : 'bg-gray-200'"
+                class="relative inline-flex h-6 w-11 border items-center rounded-full"
+              >
+                <span class="sr-only">Enable notifications</span>
+                <span
+                  :class="form.can_come ? 'translate-x-6' : 'translate-x-1'"
+                  class="
+                    inline-block
+                    h-4
+                    w-4
+                    transform
+                    rounded-full
+                    bg-white
+                    transition
+                  "
+                />
+              </Switch>
+              <h6 class="font-lora" :class="form.can_come ? 'text-sage-pale/80' : 'text-red-800/80'">
+                {{ form.can_come ? "Hadir" : "Tidak Hadir" }}
+              </h6>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="pesan" class="text-lg font-lora text-gray-800/80"
+              >Jumlah Tamu</label
+            >
+            <div class="flex gap-2">
+              <RadioGroup v-model="form.person" class="flex gap-2 flex-wrap mt-2">
+                <RadioGroupOption v-slot="{ checked }" :value="item" v-for="(item, index) in person_array" :key="index">
+                  <span class="px-3 py-2 cursor-pointer rounded-lg font-lora" :class="checked ? 'bg-sage/20 text-sage-pale border border-sage-pale' : ''">{{ item }} orang</span>
+                </RadioGroupOption>
+              </RadioGroup>
+            </div>
+          </div>
+          <div class="cursor-pointer">
+            <div
+              class="
+                bg-sage-pale
+                py-3
+                px-4
+                rounded-lg
+                font-lora
+                text-white text-center
+              "
+            >
+              Kirim
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
