@@ -206,14 +206,13 @@ const open = async () => {
 </script>
 
 <template>
-  <div class="w-full min-h-screen overflow-x-hidden relative">
+  <div class="w-full overflow-x-hidden relative">
     <div
       ref="cover"
       class="
         fixed
         z-50
         cover-invitation
-        h-screen
         inset-0
         transition-all
         duration-1000
@@ -221,7 +220,7 @@ const open = async () => {
     >
       <Cover :guest="invitation" @openInvitation="open" @play="playNewMusic" />
     </div>
-    <div ref="opening" class="flex flex-col">
+    <div ref="opening" class="flex flex-col overflow-hidden">
       <Opening :guest="invitation" />
       <Surah />
       <Pengantin data-scroll />
@@ -342,11 +341,16 @@ const open = async () => {
           fixed
           bottom-0
           z-40
-          inset-x-0
+          left-0
+          right-0
           text-white/90
           px-4
           py-1
           bg-sage-pale/80
+          md:right-0
+          md:w-96
+          md:ml-auto
+          md:rounded-tl-lg
         "
       >
         <span>

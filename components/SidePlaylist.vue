@@ -31,7 +31,7 @@ const close = () => {
 
 const selectSong = (index) => {
   emit("select", index);
-  close();
+  // close();
 };
 
 const toggleShuffle = () => {

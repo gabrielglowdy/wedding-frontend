@@ -56,12 +56,11 @@
           </div>
         </div>
       </div>
-      <div class="absolute bottom-0 inset-x-0 bg-sage-pale pb-6 bg-opacity-5 rounded-t-lg backdrop-blur">
-        <div class="text-white/60 py-4 md:py-8 text-center">
+      <div class="absolute bottom-0 inset-x-0 bg-sage-pale pb-6 md:pb-0 bg-opacity-10 rounded-t-lg backdrop-blur">
+        <div class="text-white/60 py-4 md:py-2 text-center flex items-center gap-2 justify-center">
           <h6 class="text-sm md:text-base font-lora">
-            Dibuat oleh Lilla & Gabriel
+            Dibuat oleh Lilla & Gabriel | 2023
           </h6>
-          <h6 class="text-sm md:text-base font-lora">2023</h6>
         </div>
       </div>
     </div>

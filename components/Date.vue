@@ -19,7 +19,7 @@ const dateDiff = date - dateNow;
         p-8
         border border-sage-pale
         rounded-lg
-        md:max-w-2xl md:mx-auto
+        md:max-w-xl md:mx-auto
       "
     >
       <ClientOnly>

@@ -27,7 +27,14 @@ const props = defineProps({
         alt=""
       />
     </div>
-    <div class="absolute inset-0 flex items-center flex-col top-1/3 -mt-12">
+    <div
+      class="absolute inset-0 flex items-center flex-col top-1/3 -mt-12"
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-bottom"
+      data-aos-delay="850"
+      data-aos-duration="750"
+      data-aos-easing="ease-in-out"
+    >
       <Logo class="text-sage-pale h-24 object-cover" />
       <h2
         class="
