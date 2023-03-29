@@ -1,17 +1,30 @@
 <script setup>
-import { Switch, RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
+import {
+  Switch,
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from "@headlessui/vue";
+const emit = defineEmits();
 
 const props = defineProps({
   guest: Object,
 });
 
+const person_array = [1, 2];
 const form = ref({
   name: props.guest.name ? props.guest.name : "",
-  can_come: false,
-  person: 1
+  can_come: props.guest.is_confirm_rsvp ? props.guest.can_come : false,
+  person: props.guest.is_confirm_rsvp ? props.guest.person_come : 1,
 });
 
-const person_array = [1, 2];
+const submitRSVP = () => {
+  emit("submit", form.value);
+};
+
+const updateRSVP = () => {
+  emit("update", form.value);
+};
 </script>
 <template>
   <div class="min-h-screen w-screen relative py-16 px-8">
@@ -23,7 +36,12 @@ const person_array = [1, 2];
       />
     </div>
     <div class="absolute -left-16 -top-6">
-      <img class="h-56 object-scale-down " src="~assets/img/flower/flower-12.png" alt="" srcset="">
+      <img
+        class="h-56 object-scale-down"
+        src="~assets/img/flower/flower-12.png"
+        alt=""
+        srcset=""
+      />
     </div>
     <div class="relative h-full">
       <div
@@ -49,10 +67,30 @@ const person_array = [1, 2];
         "
       >
         <div class="flex flex-col gap-2">
-          <h2 class="text-5xl text-center font-moon-dance text-gray-800/80">
+          <h2 class="text-3xl text-center font-satisfy text-gray-800/80">
             RSVP
           </h2>
-          <h6 class="font-lora text-center text-gray-800/80 text-xs md:text-sm max-w-lg">
+          <h6
+            v-if="guest.is_confirm_rsvp"
+            class="
+              font-lora
+              text-center text-gray-800/80 text-xs
+              md:text-sm
+              max-w-lg
+            "
+          >
+            Terima kasih telah menkonfirmasi
+            {{ guest.can_come ? "kehadiran" : "ketidakhadiran" }} Anda
+          </h6>
+          <h6
+            v-else
+            class="
+              font-lora
+              text-center text-gray-800/80 text-xs
+              md:text-sm
+              max-w-lg
+            "
+          >
             Bantu kami mempersiapkan jamuan yang hangat untuk anda semua dengan
             mengirimkan konfirmasi kehadiran melalui form berikut ini
           </h6>
@@ -86,7 +124,15 @@ const person_array = [1, 2];
               <Switch
                 v-model="form.can_come"
                 :class="form.can_come ? 'bg-sage-pale' : 'bg-gray-200'"
-                class="relative inline-flex h-6 w-11 border items-center rounded-full"
+                class="
+                  relative
+                  inline-flex
+                  h-6
+                  w-11
+                  border
+                  items-center
+                  rounded-full
+                "
               >
                 <span class="sr-only">Enable notifications</span>
                 <span
@@ -102,7 +148,10 @@ const person_array = [1, 2];
                   "
                 />
               </Switch>
-              <h6 class="font-lora" :class="form.can_come ? 'text-sage-pale/80' : 'text-red-800/80'">
+              <h6
+                class="font-lora"
+                :class="form.can_come ? 'text-sage-pale/80' : 'text-red-800/80'"
+              >
                 {{ form.can_come ? "Hadir" : "Tidak Hadir" }}
               </h6>
             </div>
@@ -112,25 +161,46 @@ const person_array = [1, 2];
               >Jumlah Tamu</label
             >
             <div class="flex gap-2">
-              <RadioGroup v-model="form.person" class="flex gap-2 flex-wrap mt-2">
-                <RadioGroupOption v-slot="{ checked }" :value="item" v-for="(item, index) in person_array" :key="index">
-                  <span class="px-3 py-2 cursor-pointer rounded-lg font-lora" :class="checked ? 'bg-sage/20 text-sage-pale border border-sage-pale' : ''">{{ item }} orang</span>
+              <RadioGroup
+                v-model="form.person"
+                :disabled="!form.can_come"
+                class="flex gap-2 flex-wrap mt-2"
+              >
+                <RadioGroupOption
+                  v-slot="{ checked }"
+                  :value="item"
+                  v-for="(item, index) in person_array"
+                  :key="index"
+                >
+                  <span
+                    class="px-3 py-2 cursor-pointer rounded-lg font-lora"
+                    :class="{
+                      'bg-sage/20 text-sage-pale border border-sage-pale':
+                        checked && form.can_come,
+                      'bg-gray-100 text-gray-400 border border-gray-300':
+                        !form.can_come,
+                      'text-gray-800 border border-white':
+                        !checked && form.can_come,
+                    }"
+                    >{{ item }} orang</span
+                  >
                 </RadioGroupOption>
               </RadioGroup>
             </div>
           </div>
-          <div class="cursor-pointer">
+          <div
+            @click="guest.is_confirm_rsvp ? updateRSVP() : submitRSVP()"
+            class="cursor-pointer"
+          >
             <div
-              class="
-                bg-sage-pale
-                py-3
-                px-4
-                rounded-lg
-                font-lora
-                text-white text-center
-              "
+              :class="{
+                'bg-sage-pale text-white ': !guest.is_confirm_rsvp,
+                'bg-sage/20 text-sage-pale pale border border-sage-pale':
+                  guest.is_confirm_rsvp,
+              }"
+              class="py-3 px-4 rounded-lg font-lora text-center"
             >
-              Kirim
+              {{ guest.is_confirm_rsvp ? "Perbarui" : "Kirim" }}
             </div>
           </div>
         </div>

@@ -51,6 +51,8 @@ export default defineNuxtConfig({
   strapi: {
     url: process.env.STRAPI_URL || `http://localhost:1337`,
     entities: ['guests'],
+    token: process.env.STRAPI_TOKEN || '',
+    cookie: process.env.STRAPI_TOKEN || ''
   },
   nitro: {
     prerender: {
@@ -66,13 +68,17 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       baseURL: process.env.BASE_URL || 'http://localhost:1337/api/',
+      strapiURL: process.env.STRAPI_URL || 'http://localhost:1337',
+      user: process.env.USER || 'to_infinity_and_beyond',
+      code: process.env.PASSWORD ||'akjsdha(A8hjasjh*!&@'
     },
     private: {
-      apiKey: '8d4db23f2b723d2122793c818407194660bd92ea7b2edcddb9ca3946cbec64f8fdf6dbc4b89f980c6b461021a37e6b9166b2e4dd57d077e1120793f1e0595ca7cea760a199c4f48be0314b67c395222591149192c65965677cd5c8907c96da8787e9330f0d62c813d21f6d2ca1f8da16d92d522cdf0075cabde8a6427b480dec'
+      apiKey: '',
+      strapi_token: process.env.STRAPI_TOKEN || ''
     }
   },
-  ssr: true,
-  static: true,
+  ssr: !true,
+  // static: true,
 
   css: ['~/assets/css/main.css'],
   postcss: {

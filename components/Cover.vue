@@ -1,30 +1,29 @@
 <script setup>
+const { find, findOne } = useStrapi();
+const logo = ref(null)
+const selectedMusic = ref(1);
+const runtimeConfig = useRuntimeConfig();
+const strapi_url = runtimeConfig.public.strapiURL;
+
+
+const getLogo = async () => {
+  logo.value = await find("logo", {
+    populate: 'image'
+  }).then((res) => {
+    return res.data.attributes;
+  });
+};
+
 const props = defineProps({
   guest: Object,
+  category: Array,
 });
 
-const selectedMusic = ref(1);
-const musicCategories = [
-  {
-    name:'Mati',
-    label: "🤫",
-    value: "muted",
-  },
-  {
-    name:'Akustik',
-    label: "🎸",
-    value: "acoustic",
-  },
-  {
-    name:'Band',
-    label: "💃🥁",
-    value: "band",
-  },
-];
+const musicCategories = props.category;
 
 const selectMusic = (index) => {
-  selectedMusic.value = index
-}
+  selectedMusic.value = index;
+};
 
 const playVideo = ref(false);
 
@@ -34,9 +33,27 @@ const wantToOpenRight = ref(false);
 const wantToOpenLeft = ref(false);
 
 const openInvitation = () => {
-  emit("play", musicCategories[selectedMusic.value].value);
+  emit("play", musicCategories[selectedMusic.value].attributes.slug);
   emit("openInvitation");
 };
+
+const getIcon = (slug) => {
+  switch (slug) {
+    case 'mute':
+      return '🤫'
+
+    case 'acoustic':
+      return '🎸'
+    
+    case 'band':
+      return '💃'
+  }
+  return slug
+}
+
+onMounted(() => {
+  // getLogo();
+});
 </script>
 
 <template>
@@ -73,14 +90,31 @@ const openInvitation = () => {
           />
         </video>
       </div>
-      <div class="absolute inset-0 flex items-center flex-col top-1/3 -mt-32">
-        <h2 class="inset-x-0 text-lg font-lora text-white text-center">
-          We invite you to
-        </h2>
-        <h2 class="inset-x-0 text-lg font-lora text-white text-center">
-          Celebrate our Wedding
-        </h2>
-        <Logo class="text-white mt-6 h-24 object-cover" />
+      <div
+        class="absolute inset-0 flex items-center flex-col"
+        :class="{
+          'top-1/3 -mt-36': guest,
+          'top-1/3 -mt-16': !guest,
+        }"
+      >
+        <div v-if="guest">
+          <h2 class="inset-x-0 text-lg font-lora text-white text-center">
+            We invite you to
+          </h2>
+          <h2 class="inset-x-0 text-lg font-lora text-white text-center">
+            Celebrate our Wedding
+          </h2>
+        </div>
+        <div v-else>
+          <h2 class="inset-x-0 text-lg font-lora text-white text-center">
+            Silahkan akses dari link 
+          </h2>
+          <h2 class="inset-x-0 text-lg font-lora text-white text-center">
+            yang sudah kami kirimkan ya
+          </h2>
+        </div>
+        <img v-if="logo && logo.image" :src="strapi_url + logo.image.data.attributes.url" class="w-56 h-56 scale-150 p-2 object-scale-down" alt="">
+        <Logo v-else class="text-white mt-6 h-24 object-cover" />
         <div class="flex flex-col items-center">
           <h2 class="inset-x-0 text-5xl mt-6 font-lora text-white text-center">
             Lilla & Gabriel
@@ -133,14 +167,25 @@ const openInvitation = () => {
           <div class="mt-4 flex flex-col gap-3">
             <div class="flex items-center justify-center gap-2">
               <div v-for="(item, index) in musicCategories" :key="index">
-                <div class="p-2 rounded-full cursor-pointer" @click="selectMusic(index)" :class="{'bg-sage' : index == selectedMusic, 'bg-white/80 ': index != selectedMusic}">
-                  <h6 class="text-sm">{{ item.label }}</h6>
+                <div
+                  class="p-2 rounded-full cursor-pointer"
+                  @click="selectMusic(index)"
+                  :class="{
+                    'bg-sage': index == selectedMusic,
+                    'bg-white/80 ': index != selectedMusic,
+                  }"
+                >
+                  <h6 class="text-sm">{{ getIcon(item.attributes.slug) }}</h6>
                 </div>
               </div>
             </div>
             <!-- <h6 class="text-white/90 font-lora text-center">Musik: {{ musicCategories[selectedMusic].name }}</h6> -->
           </div>
         </div>
+        <div v-else>
+          <h6 class="font-lora text-white/80 text-center text-sm px-16 mt-4">Apabila terjadi kendala silahkan hubungi kami (Lilla atau Gabriel) di Whatsapp</h6>
+        </div>
+
       </div>
     </div>
   </div>

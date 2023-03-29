@@ -1,5 +1,16 @@
+<script setup>
+const runtimeConfig = useRuntimeConfig();
+const strapi_url = runtimeConfig.public.strapiURL;
+
+const props = defineProps({
+  data: {
+    type: Object,
+    defualt: null
+  }
+})
+</script>
 <template>
-  <div class="relative px-8">
+  <div v-if="data" class="relative px-8">
     <div class="absolute w-full h-full inset-0">
       <img
         src="~assets/img/flower/bg-flower.jpg"
@@ -24,7 +35,7 @@
             "
           >
             <img
-              src="~assets/img/woman.jpg"
+              :src="strapi_url + data.bride_photo.data.attributes.url"
               class="w-full h-full object-cover scale-125"
               alt=""
               srcset=""
@@ -52,25 +63,25 @@
             md:text-4xl
           "
         >
-          Lilla Anjani Birahmatika
+          {{ data.bride }}
         </h6>
         <h6
           data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-delay="550" data-aos-duration="600" data-aos-easing="ease-in-out"
           class="text-sm md:text-md mt-1 px-4 md:px-12 text-center font-lora"
         >
-          Putri Ketiga dari Bapak Pulung Suwandaru
+          {{ data.bride_label }} {{ data.father_label }} {{ data.bride_father }}
         </h6>
         <h6
           data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="650" data-aos-easing="ease-in-out"
           class="text-sm md:text-md px-4 md:px-12 text-center font-lora"
         >
-          & Ibu Nuraini Pangewa
+          & {{ data.mother_label }} {{ data.bride_mother }}
         </h6>
         <h6
           data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="750" data-aos-duration="650" data-aos-easing="ease-in-out"
           class="text-xs mt-1 md:text-md italic text-center font-lora"
         >
-          (Jl. Karangrejo Timur III No. 38, Kec.Wonokromo, Surabaya)
+          ({{ data.bride_address }})
         </h6>
       </div>
       <h6 data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-4xl font-satisfy mt-2 text-sage-pale">&</h6>
@@ -87,7 +98,7 @@
             "
           >
             <img
-              src="~assets/img/men.webp"
+              :src="strapi_url + data.groom_photo.data.attributes.url"
               class="w-full h-full object-cover scale-125"
               alt=""
               srcset=""
@@ -113,27 +124,27 @@
             md:text-4xl
           "
         >
-          Achmad Gabriel Glowdy
+          {{ data.groom }}
         </h6>
         <div class="">
           <h6
             data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-delay="550" data-aos-duration="650" data-aos-easing="ease-in-out"
             class="text-sm md:text-md mt-1 px-4 md:px-12 text-center font-lora"
           >
-            Putra Kedua dari Bapak M. Dawam Ichsan
+            {{ data.groom_label }} {{ data.father_label }} {{ data.groom_father }}
           </h6>
           <h6
             data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="750" data-aos-easing="ease-in-out"
             class="text-sm md:text-md px-4 md:px-12 text-center font-lora"
           >
-            & Ibu Listiyawati Suherini
+            & {{ data.mother_label }} {{ data.groom_mother }}
           </h6>
         </div>
         <h6
           data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="750" data-aos-duration="850" data-aos-easing="ease-in-out"
           class="text-xs mt-1 md:text-md italic text-center font-lora"
         >
-          (Jl. Mastrip Gang VI / 6, Kec. Kanigaran, Probolinggo)
+          ({{ data.groom_address }})
         </h6>
       </div>
     </div>

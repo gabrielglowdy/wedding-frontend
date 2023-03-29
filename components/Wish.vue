@@ -1,43 +1,59 @@
 <script setup>
+const props = defineProps({
+  name: {
+    type: String,
+    default: ''
+  },
+  is_sent: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const is_sent_wish = ref(props.is_sent);
 const form = ref({
-  name: "",
+  name: props.name,
   message: "",
 });
 
-const messages = [
-  {
-    name: "Name",
-    message: "Pesan",
-  },
-  {
-    name: "Name",
-    message: "Pesan",
-  },
-  {
-    name: "Name",
-    message: "Pesan",
-  },
-  {
-    name: "Name",
-    message: "Pesan",
-  },
-  {
-    name: "Name",
-    message: "Pesan",
-  },
-  {
-    name: "Name",
-    message: "Pesan",
-  },
-  {
-    name: "Name",
-    message: "Pesan",
-  },
-  {
-    name: "Name",
-    message: "Pesan",
-  },
-];
+const wishes = ref([])
+const isLoading = ref(false)
+const errorText = ref('');
+
+const { create, find, update } = useStrapi();
+const emit = defineEmits();
+
+const getWishes = async() => {
+  wishes.value =  (await find("wishes")).data
+}
+
+const sendWish = async() => {
+  errorText.value = '';
+  if (!form.value.message) {
+    errorText.value = 'Tuliskan Ucapan dan Harapan kamu terlebih dahulu ya'
+    return false
+  }
+  isLoading.value = true
+  if (!form.value.name) {
+    form.value.name = props.name
+  }
+  const res = await create('wishes', {
+    name: form.value.name,
+    message: form.value.message
+  })
+  
+
+  is_sent_wish.value = true
+  emit('send')
+  getWishes();
+  isLoading.value = false
+
+
+}
+
+onMounted(() => {
+  getWishes()
+});
 </script>
 <template>
   <div class="px-8 py-16 relative">
@@ -93,13 +109,16 @@ const messages = [
             items-center
           "
         >
-          <h2 class="text-5xl text-center font-moon-dance text-gray-800/80">
+          <h2 class="text-4xl text-center font-satisfy text-gray-800/80">
             Ucapan & Harapan
           </h2>
           <Line class="" />
-          <div class="flex flex-col w-full px-0 md:px-8 gap-6">
+          <div
+            v-if="!is_sent_wish"
+            class="flex flex-col w-full px-0 md:px-8 gap-6"
+          >
             <div class="flex flex-col gap-2">
-              <label for="name" class="text-2xl font-satisfy text-gray-800/80"
+              <label for="name" class="text-lg font-lora text-gray-800/80"
                 >Nama</label
               >
               <input
@@ -115,7 +134,7 @@ const messages = [
               />
             </div>
             <div class="flex flex-col gap-2">
-              <label for="pesan" class="text-2xl font-satisfy text-gray-800/80"
+              <label for="pesan" class="text-lg font-lora text-gray-800/80"
                 >Pesan</label
               >
               <textarea
@@ -130,8 +149,9 @@ const messages = [
                 "
               ></textarea>
             </div>
+            <h6 :class="{ 'opacity-0' : !errorText}" class="text-red-500 text-sm text-center">{{ errorText }}</h6>
             <div class="cursor-pointer">
-              <div
+              <div @click="sendWish"
                 class="
                   bg-sage-pale
                   py-3
@@ -144,6 +164,11 @@ const messages = [
                 Kirim
               </div>
             </div>
+          </div>
+          <div v-else>
+            <h6 class="font-lora text-gray-800/80">
+              Terima kasih ucapan dan harapan yang telah kamu kirimkan :)
+            </h6>
           </div>
         </div>
         <Line
@@ -181,7 +206,7 @@ const messages = [
             "
           >
             <div
-              v-for="(data, index) in messages"
+              v-for="(data, index) in wishes"
               :key="index"
               class="
                 border
@@ -197,8 +222,10 @@ const messages = [
                 flex flex-col
               "
             >
-              <h6 class="text-md text-dark/80 font-lora">{{ data.name }}</h6>
-              <h6 class="text-sm text-dark/70 mt-1 font-lora">{{ data.message }}</h6>
+              <h6 class="text-md text-dark/80 font-lora">{{ data.attributes.name }}</h6>
+              <h6 class="text-sm text-dark/70 mt-1 font-lora">
+                {{ data.attributes.message }}
+              </h6>
             </div>
           </div>
         </div>

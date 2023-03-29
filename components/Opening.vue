@@ -2,6 +2,8 @@
 const props = defineProps({
   guest: Object,
 });
+
+const emit = defineEmits();
 </script>
 
 <template>
@@ -66,5 +68,7 @@ const props = defineProps({
         alt=""
       />
     </div>
+
+    
   </div>
 </template>
