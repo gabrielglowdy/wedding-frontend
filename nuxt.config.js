@@ -41,7 +41,8 @@ export default defineNuxtConfig({
         }, {
           href: "https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:ital,wght@0,400;0,500;0,600;1,300;1,500&family=Moon+Dance&family=Satisfy&display=swap",
           rel: "stylesheet"
-        }
+        },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
       ]
     }
   },
