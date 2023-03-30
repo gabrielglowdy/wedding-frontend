@@ -23,14 +23,14 @@ const errorText = ref('');
 const { create, find, update } = useStrapi();
 const emit = defineEmits();
 
-const getWishes = async() => {
-  wishes.value =  (await find("wishes")).data
+const getWishes = async(limit=10) => {
+  wishes.value =  (await find(`wishes?sort[0]=id%3Adesc&sort[1]=createdAt%3Adesc&pagination[pageSize]=${limit}`)).data
 }
 
 const sendWish = async() => {
   errorText.value = '';
   if (!form.value.message) {
-    errorText.value = 'Tuliskan Ucapan dan Harapan kamu terlebih dahulu ya'
+    errorText.value = 'Tuliskan Ucapan dan Harapan Anda terlebih dahulu ya'
     return false
   }
   isLoading.value = true
@@ -47,7 +47,6 @@ const sendWish = async() => {
   emit('send')
   getWishes();
   isLoading.value = false
-
 
 }
 
@@ -167,7 +166,7 @@ onMounted(() => {
           </div>
           <div v-else>
             <h6 class="font-lora text-gray-800/80">
-              Terima kasih ucapan dan harapan yang telah kamu kirimkan :)
+              Terima kasih atas ucapan dan harapan yang telah Anda kirimkan :)
             </h6>
           </div>
         </div>
