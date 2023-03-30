@@ -272,7 +272,7 @@ const showToast = (data) => {
         <audio ref="musicBackground" @ended="onEnded" id="music">
           <source :src="
             selectedSong.length > 0 ? selectedSong[currentPlay].src : null
-          " :type="selectedSong[currentPlay].mime || 'audio/mpeg'" />
+          " :type="selectedSong.length > 0 ? selectedSong[currentPlay]?.mime : 'audio/mpeg'" />
           Your browser does not support the audio element.
         </audio>
         <div class="flex flex-col gap-3" v-show="!isFirstPlay">
