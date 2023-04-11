@@ -154,7 +154,6 @@ const playNewMusic = async (type) => {
       src: strapi_url + data.song.data.attributes.url,
     }
   });
-  console.log(type, selectedSong.value);
   showSong.value = [...selectedSong.value]
   selectMusic(getRandomInt(selectedSong.value.length));
 

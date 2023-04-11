@@ -22,7 +22,6 @@ watch(
   () => props.show,
   (val, prevVal) => {
     isShow.value = val;
-    console.log(props.show);
   }
 );
 
