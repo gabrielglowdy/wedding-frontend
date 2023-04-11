@@ -30,7 +30,7 @@ const props = defineProps({
               w-32
               h-44
               rounded-t-[100px] rounded-b-xl
-              border-2 border-sage-pale
+              border-2 border-primary-light
               p-0.5
             "
           >
@@ -59,7 +59,7 @@ const props = defineProps({
             font-medium
             text-center
             font-satisfy
-            text-sage-pale text-3xl
+            text-primary-light text-3xl
             md:text-4xl
           "
         >
@@ -84,7 +84,7 @@ const props = defineProps({
           ({{ data.bride_address }})
         </h6>
       </div>
-      <h6 data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-4xl font-satisfy mt-2 text-sage-pale">&</h6>
+      <h6 data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-4xl font-satisfy mt-2 text-primary-light">&</h6>
       <div class="flex flex-col items-center flex-auto">
         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-easing="ease-in-out" class="relative">
           <div
@@ -93,7 +93,7 @@ const props = defineProps({
               w-32
               h-44
               rounded-t-[100px] rounded-b-xl
-              border-2 border-sage-pale
+              border-2 border-primary-light
               p-0.5
             "
           >
@@ -120,7 +120,7 @@ const props = defineProps({
           class="
             mt-6
             font-medium font-satisfy
-            text-sage-pale text-center text-3xl
+            text-primary-light text-center text-3xl
             md:text-4xl
           "
         >

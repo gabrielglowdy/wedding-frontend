@@ -68,6 +68,10 @@ module.exports = {
         }
       },
       colors: {
+        primary:{
+          DEFAULT: '#023e8a',
+          light: '#023e8a'
+        },
         sage: {
           DEFAULT: '#9DC183',
           pale: '#77AA79'

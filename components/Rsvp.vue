@@ -5,6 +5,7 @@ import {
   RadioGroupLabel,
   RadioGroupOption,
 } from "@headlessui/vue";
+import Flower12 from "./flower/Flower12.vue";
 const emit = defineEmits();
 
 const props = defineProps({
@@ -36,12 +37,7 @@ const updateRSVP = () => {
       />
     </div>
     <div class="absolute -left-16 -top-6">
-      <img
-        class="h-56 object-scale-down"
-        src="~assets/img/flower/flower-12.png"
-        alt=""
-        srcset=""
-      />
+      <Flower12 class="h-56 object-scale-down text-primary"></Flower12>
     </div>
     <div class="relative h-full">
       <div
@@ -54,7 +50,7 @@ const updateRSVP = () => {
           transition-all
           duration-300
           hover:shadow-lg
-          border border-sage-pale
+          border border-primary-light
           rounded-lg
           py-6
           px-5
@@ -111,7 +107,7 @@ const updateRSVP = () => {
                 rounded-md
                 bg-gray-100
                 text-gray-500
-                focus:border-sage-pale focus:ring-sage-pale
+                focus:border-primary-light focus:ring-primary-light
                 border-gray-800/20
               "
             />
@@ -123,7 +119,7 @@ const updateRSVP = () => {
             <div class="flex gap-2">
               <Switch
                 v-model="form.can_come"
-                :class="form.can_come ? 'bg-sage-pale' : 'bg-gray-200'"
+                :class="form.can_come ? 'bg-primary-light' : 'bg-gray-200'"
                 class="
                   relative
                   inline-flex
@@ -150,7 +146,7 @@ const updateRSVP = () => {
               </Switch>
               <h6
                 class="font-lora"
-                :class="form.can_come ? 'text-sage-pale/80' : 'text-red-800/80'"
+                :class="form.can_come ? 'text-primary-light/80' : 'text-red-800/80'"
               >
                 {{ form.can_come ? "Hadir" : "Tidak Hadir" }}
               </h6>
@@ -175,7 +171,7 @@ const updateRSVP = () => {
                   <span
                     class="px-3 py-2 cursor-pointer rounded-lg font-lora"
                     :class="{
-                      'bg-sage/20 text-sage-pale border border-sage-pale':
+                      'bg-primary/20 text-primary-light border border-primary-light':
                         checked && form.can_come,
                       'bg-gray-100 text-gray-400 border border-gray-300':
                         !form.can_come,
@@ -194,8 +190,8 @@ const updateRSVP = () => {
           >
             <div
               :class="{
-                'bg-sage-pale text-white ': !guest.is_confirm_rsvp,
-                'bg-sage/20 text-sage-pale pale border border-sage-pale':
+                'bg-primary-light text-white ': !guest.is_confirm_rsvp,
+                'bg-primary/20 text-primary-light pale border border-primary-light':
                   guest.is_confirm_rsvp,
               }"
               class="py-3 px-4 rounded-lg font-lora text-center"

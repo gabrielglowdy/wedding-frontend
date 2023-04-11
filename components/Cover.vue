@@ -58,7 +58,7 @@ onMounted(() => {
 
 <template>
   <div class="relative w-screen h-screen bg-gray-900">
-    <div class="w-full h-full bg-sage/30">
+    <div class="w-full h-full bg-primary/30">
       <div :class="{ 'opacity-0': playVideo }" class="absolute inset-0">
         <img
           src="~assets/img/bg-2.jpg"
@@ -131,12 +131,13 @@ onMounted(() => {
             @click.prevent="openInvitation"
             class="
               mt-6
-              bg-sage
+              bg-primary
+              hover:bg-primary/80
               cursor-pointer
               duration-1000
               shadow-buzz-green
               hover:duration-300
-              border-2 border-sage/50
+              border-2 border-primary/50
               backdrop-blur-lg
               drop-shadow-lg
               py-3
@@ -144,7 +145,7 @@ onMounted(() => {
               rounded-lg
             "
           >
-            <span class="font-lora text-dark/70 flex items-center gap-2">
+            <span class="font-lora text-white/80 flex items-center gap-2">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +172,7 @@ onMounted(() => {
                   class="p-2 rounded-full cursor-pointer"
                   @click="selectMusic(index)"
                   :class="{
-                    'bg-sage': index == selectedMusic,
+                    'bg-primary': index == selectedMusic,
                     'bg-white/80 ': index != selectedMusic,
                   }"
                 >

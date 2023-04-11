@@ -17,7 +17,7 @@ const dateDiff = date - dateNow;
       class="
         bg-white
         p-8
-        border border-sage-pale
+        border border-primary-light
         rounded-lg
         md:max-w-xl md:mx-auto
       "
@@ -29,19 +29,19 @@ const dateDiff = date - dateNow;
         >
           <div class="grid grid-cols-4 gap-3 items-center font-lora">
             <div class="flex flex-col items-center">
-              <h5 class="text-3xl text-sage-pale">{{ days }}</h5>
+              <h5 class="text-3xl text-primary-light">{{ days }}</h5>
               <h5 class="text-gray-800/80">Hari</h5>
             </div>
             <div class="flex flex-col items-center">
-              <h5 class="text-3xl text-sage-pale">{{ hours }}</h5>
+              <h5 class="text-3xl text-primary-light">{{ hours }}</h5>
               <h5 class="text-gray-800/80">Jam</h5>
             </div>
             <div class="flex flex-col items-center">
-              <h5 class="text-3xl text-sage-pale">{{ minutes }}</h5>
+              <h5 class="text-3xl text-primary-light">{{ minutes }}</h5>
               <h5 class="text-gray-800/80">Menit</h5>
             </div>
             <div class="flex flex-col items-center">
-              <h5 class="text-3xl text-sage-pale">{{ seconds }}</h5>
+              <h5 class="text-3xl text-primary-light">{{ seconds }}</h5>
               <h5 class="text-gray-800/80">Detik</h5>
             </div>
           </div>
@@ -56,7 +56,7 @@ const dateDiff = date - dateNow;
         data-aos-duration="750"
         data-aos-easing="ease-in-out"
         href="https://calendar.google.com/calendar/render?action=TEMPLATE&dates=20230603T030000Z%2F20230603T053000Z&details=&location=Gedung%20BK3S%20Jatim%2C%20Jalan%20Raya%20Tenggilis%2C%20Tenggilis%20Mejoyo%2C%20Surabaya%20City%2C%20East%20Java&text=Undangan%20Pernikahan%20Lilla%20Gabriel"
-        class="bg-sage-pale py-3 font-lora text-white px-6 rounded-full mx-auto flex items-center gap-2"
+        class="bg-primary-light py-3 font-lora text-white px-6 rounded-full mx-auto flex items-center gap-2"
       >
         <span>
           <svg

@@ -7,6 +7,9 @@ const props = defineProps({
   selectedSong: Number,
   isShuffle: Boolean,
   isPlay: Boolean,
+  categories: Array,
+  selectedCategory: String,
+  currentCategory: String
 });
 
 const isShow = ref(false);
@@ -19,6 +22,7 @@ watch(
   () => props.show,
   (val, prevVal) => {
     isShow.value = val;
+    console.log(props.show);
   }
 );
 
@@ -26,11 +30,11 @@ const close = () => {
   isShow.value = false;
   setTimeout(() => {
     emit("close");
-  }, 300);
+  }, 600);
 };
 
 const selectSong = (index) => {
-  emit("select", index);
+  emit("select", index, props.selectedCategory);
   // close();
 };
 
@@ -45,19 +49,24 @@ const togglePlay = () => {
 const nextPlay = () => {
   emit("next");
 };
+
+const selectCategory = (type) => {
+  emit('selectCategory', type)
+}
 </script>
 <template>
   <transition name="fade">
-    <div v-if="show">
+    <div class="transition-all duration-500" :class="{ 'translate-x-full' : !show }">
       <div class="fixed inset-0 z-40">
         <div
           @click="close"
-          class="relative w-full h-screen bg-gray-900/40"
+          class="relative w-full h-screen  transition-all duration-300"
+          :class="{'bg-gray-900/40' : isShow, 'bg-gray-900/0' : !isShow}"
         ></div>
       </div>
       <div
-        class="fixed inset-y-0 z-50"
-        :class="{ 'w-full md:w-1/3 right-0': isShow, 'w-0 -right-12': !isShow }"
+        class="fixed inset-y-0 z-50 transition-all duration-1000 w-full md:w-3/5 lg:w-1/3 "
+        :class="{ 'right-0 translate-x-0': isShow, '-right-12 translate-x-full': !isShow }"
       >
         <div
           class="
@@ -92,7 +101,12 @@ const nextPlay = () => {
           </div>
           <div>
             <h6 class="text-2xl text-center font-lora mb-3">Playlist</h6>
-            <Line class="mb-8" />
+            <Line class="mb-3" />
+          </div>
+          <div class="flex flex-wrap items-center gap-3 mb-3 justify-center">
+            <div v-for="(item, index) in categories.filter((item) => item.attributes.slug !== 'mute')" :key="index">
+              <div @click="selectCategory(item.attributes.slug)" :class="`font-lora text-dark/80 capitalize pb-2 transition-all duration-500 border-b-2 ${selectedCategory === item.attributes.slug ? 'border-primary': 'border-transparent'} `" >{{ item.attributes.name }}</div>
+            </div>
           </div>
           <div
             class="
@@ -101,14 +115,14 @@ const nextPlay = () => {
               overflow-y-scroll
               mb-6
               scrollbar-thin
-              scrollbar-track-sage/10
-              scrollbar-thumb-sage-pale/80
+              scrollbar-track-primary/10
+              scrollbar-thumb-primary-light/80
               scrollbar-thumb-rounded-full
             "
           >
             <div
               class="py-2 px-3 rounded-md flex items-center cursor-pointer"
-              :class="{ 'bg-sage/20 text-sage-pale': index == selectedSong }"
+              :class="{ 'bg-primary/5 shadow-md shadow-primary/5 text-primary': (index == selectedSong && song.category === currentCategory) }"
               v-for="(song, index) in songs"
               :key="index"
             >
@@ -117,8 +131,8 @@ const nextPlay = () => {
                 <h6
                   class="font-lora text-sm"
                   :class="{
-                    'text-sage-pale/70': index == selectedSong,
-                    'text-gray-400': index != selectedSong,
+                    'text-primary-light/70': (index == selectedSong && song.category == currentCategory),
+                    'text-gray-400': (index != selectedSong || song.category != currentCategory),
                   }"
                 >
                   {{ song.artist }}
@@ -136,14 +150,14 @@ const nextPlay = () => {
                 rounded-full
                 h-12
                 w-12
-                border-sage-pale
-                text-sage-pale
+                border-primary-light
+                text-primary-light
               "
             >
               <Shuffle />
               <div
                 v-if="isShuffle"
-                class="w-1 h-1 bg-sage-pale mx-auto rounded-full"
+                class="w-1 h-1 bg-primary-light mx-auto rounded-full"
               ></div>
             </div>
             <div
@@ -151,8 +165,8 @@ const nextPlay = () => {
               class="
                 h-12
                 w-12
-                text-sage-pale
-                border border-sage-pale
+                text-primary-light
+                border border-primary-light
                 cursor-pointer
                 rounded-full
               "
@@ -199,8 +213,8 @@ const nextPlay = () => {
                 rounded-full
                 h-12
                 w-12
-                text-sage-pale
-                border-sage-pale
+                text-primary-light
+                border-primary-light
               "
             >
               <Next />

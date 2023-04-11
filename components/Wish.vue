@@ -97,7 +97,7 @@ onMounted(() => {
             transition-all
             duration-300
             hover:shadow-lg
-            border border-sage-pale
+            border border-primary-light
             rounded-lg
             py-6
             px-5
@@ -127,8 +127,8 @@ onMounted(() => {
                 class="
                   border
                   rounded-md
-                  focus:border-sage-pale focus:ring-sage-pale
-                  border-sage-pale
+                  focus:border-primary-light focus:ring-primary-light
+                  border-primary-light
                 "
               />
             </div>
@@ -143,8 +143,8 @@ onMounted(() => {
                 class="
                   border
                   rounded-md
-                  focus:border-sage-pale focus:ring-sage-pale
-                  border-sage-pale
+                  focus:border-primary-light focus:ring-primary-light
+                  border-primary-light
                 "
               ></textarea>
             </div>
@@ -152,7 +152,7 @@ onMounted(() => {
             <div class="cursor-pointer">
               <div @click="sendWish"
                 class="
-                  bg-sage-pale
+                  bg-primary-light
                   py-3
                   px-4
                   rounded-lg
@@ -199,8 +199,8 @@ onMounted(() => {
               h-80
               md:h-96
               scrollbar-thin
-              scrollbar-track-sage-pale/10
-              scrollbar-thumb-sage-pale/80
+              scrollbar-track-primary-light/10
+              scrollbar-thumb-primary-light/80
               scrollbar-thumb-rounded-full
             "
           >
@@ -214,7 +214,7 @@ onMounted(() => {
                 transition-all
                 duration-300
                 hover:shadow-lg
-                border-sage-pale
+                border-primary-light
                 px-6
                 py-4
                 rounded-lg

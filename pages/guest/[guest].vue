@@ -62,6 +62,9 @@ const toggleShuffle = () => {
 const currentPlay = ref(0);
 const selectedCategory = ref("acoustic");
 const selectedSong = ref([]);
+const showSong = ref([]);
+const songLists = ref([]);
+const currentCategory = ref('acoustic');
 
 const playAudio = () => {
   isPlay.value = true;
@@ -93,10 +96,23 @@ const mixPlay = () => {
   playAudio();
 };
 
-const selectMusic = (index) => {
-  if (selectedSong.value.length == 0) {
+const selectMusic = (index, category = currentCategory.value) => {
+  if (songLists.value.length == 0) {
     return false;
   }
+  selectedSong.value = songLists.value.filter((item) => item.attributes.category.data.attributes.slug === category).map((element) => {
+    const data = element.attributes;
+    return {
+      title: data.title,
+      artist: data.artist,
+      url: data.url,
+      category: data.category.data.attributes.slug,
+      volume: data.volume ? data.volume / 100 : 1,
+      mime: data.song.data.attributes.mime ? data.song.data.attributes.mime : 'audio/mpeg',
+      src: strapi_url + data.song.data.attributes.url,
+    }
+  });
+  currentCategory.value = selectedSong.value[index].category;
   musicBackground.value.src = selectedSong.value[index].src;
   musicBackground.value.volume = selectedSong.value[index].volume
     ? selectedSong.value[index].volume
@@ -104,8 +120,9 @@ const selectMusic = (index) => {
   currentPlay.value = index;
 };
 
-const selectSong = (index) => {
-  selectMusic(index);
+const selectSong = (index, category) => {
+  selectedCategory.value = category
+  selectMusic(index, category);
   playAudio();
 };
 
@@ -115,27 +132,30 @@ const playNewMusic = async (type) => {
   }
 
   const { data: songs } = await find("songs", {
-    filters: {
-      category: {
-        slug: type,
-      },
-    },
-    populate: "song",
+    // filters: {
+    //   category: {
+    //     slug: type,
+    //   },
+    // },
+    populate: ["song", 'category'],
   });
-
-  selectedSong.value = [];
-  songs.forEach((element) => {
+  songLists.value = songs
+  selectedCategory.value = type
+  currentCategory.value = type
+  selectedSong.value = songLists.value.filter((item) => item.attributes.category.data.attributes.slug === type).map((element) => {
     const data = element.attributes;
-
-    selectedSong.value.push({
+    return {
       title: data.title,
       artist: data.artist,
       url: data.url,
+      category: data.category.data.attributes.slug,
       volume: data.volume ? data.volume / 100 : 1,
       mime: data.song.data.attributes.mime ? data.song.data.attributes.mime : 'audio/mpeg',
       src: strapi_url + data.song.data.attributes.url,
-    });
+    }
   });
+  console.log(type, selectedSong.value);
+  showSong.value = [...selectedSong.value]
   selectMusic(getRandomInt(selectedSong.value.length));
 
   setTimeout(() => {
@@ -159,7 +179,9 @@ const openPlaylist = () => {
 };
 
 const closePlaylist = () => {
+  selectedCategory.value = currentCategory.value
   isOpenPlaylist.value = false;
+  getSongList()
 };
 
 const detail = ref(null);
@@ -248,6 +270,26 @@ const showToast = (data) => {
     toastShow.value = false
   }, 3000);
 }
+
+const onChangeCategory = async(val) => {
+  selectedCategory.value = val
+  getSongList()
+}
+
+const getSongList = () => {
+  showSong.value = songLists.value.filter((item) => item.attributes.category.data.attributes.slug === selectedCategory.value).map((element) => {
+    const data = element.attributes;
+    return {
+      title: data.title,
+      artist: data.artist,
+      category: data.category.data.attributes.slug,
+      url: data.url,
+      volume: data.volume ? data.volume / 100 : 1,
+      mime: data.song.data.attributes.mime ? data.song.data.attributes.mime : 'audio/mpeg',
+      src: strapi_url + data.song.data.attributes.url,
+    }
+  });
+}
 </script>
 
 <template>
@@ -279,8 +321,8 @@ const showToast = (data) => {
           <div @click="openPlaylist" class="
                           cursor-pointer
                           bg-white
-                          text-sage-pale
-                          border-sage border
+                          text-primary-light
+                          border-primary border
                           p-3
                           rounded-full
                           h-12
@@ -296,16 +338,16 @@ const showToast = (data) => {
                           h-12
                           w-12
                           bg-white
-                          border-sage-pale
-                          text-sage-pale
+                          border-primary-light
+                          text-primary-light
                         ">
             <Shuffle />
-            <div v-if="isShuffle" class="w-1 h-1 bg-sage-pale mx-auto rounded-full"></div>
+            <div v-if="isShuffle" class="w-1 h-1 bg-primary-light mx-auto rounded-full"></div>
           </div>
           <div @click="toggleAudio" class="
                           h-12
                           w-12
-                          bg-sage-pale
+                          bg-primary-light
                           border border-white/30
                           text-white
                           cursor-pointer
@@ -326,7 +368,7 @@ const showToast = (data) => {
         </div>
       </div>
 
-      <SidePlaylist @select="selectSong" :songs="selectedSong" :selectedSong="currentPlay" :show="isOpenPlaylist"
+      <SidePlaylist @select="selectSong" :currentCategory="currentCategory" :selected-category="selectedCategory" @selectCategory="onChangeCategory" :categories="categories" :songs="showSong" :selectedSong="currentPlay" :show="isOpenPlaylist"
         :isShuffle="isShuffle" :isPlay="isPlay" @toggle:shuffle="toggleShuffle" @toggle:play="toggleAudio" @next="onEnded"
         @close="closePlaylist" />
       <transition name="fade">
@@ -339,7 +381,7 @@ const showToast = (data) => {
                         text-white/90
                         px-4
                         py-1
-                        bg-sage-pale/80
+                        bg-primary-light/80
                         md:right-0 md:w-96 md:ml-auto md:rounded-tl-lg
                       ">
           <span>
@@ -353,10 +395,10 @@ const showToast = (data) => {
 
     <div>
       <div
-        :class="`fixed transition-all duration-500 border-2 ${toastType === 'success' ? 'border-sage-pale' : (toastType === 'danger' ? 'border-red-700' : 'border-gray-700')} ${toastShow ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} z-100 top-8 inset-x-0 w-5/6 shadow-lg md:w-full max-w-md lg:max-w-xl bg-white p-2 gap-1 rounded-xl flex mx-auto items-center`">
+        :class="`fixed transition-all duration-500 border-2 ${toastType === 'success' ? 'border-primary-light' : (toastType === 'danger' ? 'border-red-700' : 'border-gray-700')} ${toastShow ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} z-100 top-8 inset-x-0 w-5/6 shadow-lg md:w-full max-w-md lg:max-w-xl bg-white p-2 gap-1 rounded-xl flex mx-auto items-center`">
         <div>
           <svg v-if="toastType === 'success'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-            stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-sage-pale">
+            stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-primary-light">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>

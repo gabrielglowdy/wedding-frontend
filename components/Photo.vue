@@ -81,8 +81,8 @@ const onMovePhoto = (e) => {
         overflow-scroll
         cursor-grab
         scrollbar-thin
-        scrollbar-track-sage/10
-        scrollbar-thumb-sage-pale/80
+        scrollbar-track-primary/10
+        scrollbar-thumb-primary-light/80
         scrollbar-thumb-rounded-full
         pb-3
       "
@@ -113,8 +113,8 @@ const onMovePhoto = (e) => {
         overflow-scroll
         cursor-grab
         scrollbar-thin
-        scrollbar-track-sage/10
-        scrollbar-thumb-sage-pale/80
+        scrollbar-track-primary/10
+        scrollbar-thumb-primary-light/80
         scrollbar-thumb-rounded-full
         pb-3
       "
