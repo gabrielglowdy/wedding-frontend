@@ -69,6 +69,7 @@ const currentCategory = ref('acoustic');
 const playAudio = () => {
   isPlay.value = true;
   musicBackground.value.play();
+  timerStart()
 };
 
 const getRandomInt = (max) => {
@@ -110,6 +111,7 @@ const selectMusic = (index, category = currentCategory.value) => {
       volume: data.volume ? data.volume / 100 : 1,
       mime: data.song.data.attributes.mime ? data.song.data.attributes.mime : 'audio/mpeg',
       src: strapi_url + data.song.data.attributes.url,
+      duration: data.duration
     }
   });
   currentCategory.value = selectedSong.value[index].category;
@@ -152,6 +154,7 @@ const playNewMusic = async (type) => {
       volume: data.volume ? data.volume / 100 : 1,
       mime: data.song.data.attributes.mime ? data.song.data.attributes.mime : 'audio/mpeg',
       src: strapi_url + data.song.data.attributes.url,
+      duration: data.duration
     }
   });
   showSong.value = [...selectedSong.value]
@@ -289,6 +292,22 @@ const getSongList = () => {
     }
   });
 }
+
+const timerStart = () => {
+  const currentData = selectedSong.value[currentPlay.value]
+  const time = currentData.duration;  
+  if (!time.includes(':')) {
+    return false
+  }
+  const timesplit = time.split(':');
+  const second = parseInt(timesplit[0] * 60 * 1000) + parseInt(timesplit[1] * 1000)
+  const currentSrc = selectedSong.value[currentPlay.value].src
+  setTimeout(() => {
+    if (currentSrc === selectedSong.value[currentPlay.value].src) {
+      onEnded()
+    }
+  }, second);
+}
 </script>
 
 <template>
@@ -310,13 +329,25 @@ const getSongList = () => {
         <Closing />
       </div>
       <div class="fixed bottom-12 z-40 right-3">
-        <audio ref="musicBackground" @ended="onEnded" id="music">
+        <audio ref="musicBackground" id="music">
           <source :src="
             selectedSong.length > 0 ? selectedSong[currentPlay].src : null
           " :type="selectedSong.length > 0 ? selectedSong[currentPlay]?.mime : 'audio/mpeg'" />
           Your browser does not support the audio element.
         </audio>
         <div class="flex flex-col gap-3" v-show="!isFirstPlay">
+          <div @click="timerStart" class="
+                          cursor-pointer
+                          bg-white
+                          text-primary-light
+                          border-primary border
+                          p-3
+                          rounded-full
+                          h-12
+                          w-12
+                        ">
+            <List />
+          </div>
           <div @click="openPlaylist" class="
                           cursor-pointer
                           bg-white
