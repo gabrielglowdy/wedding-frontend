@@ -32,7 +32,9 @@ const { data: guest } = await find("guests", {
 // const { data: guest} = await useFetch(url + (route.params.guest ? '?filters[slug][$eq]=' + route.params.guest : ''))
 
 if (guest.length == 0) {
-  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+  // throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+  window.location.href = '/';
+  // return false;
 }
 
 const { data: categories } = await find("categories");
@@ -60,13 +62,19 @@ const toggleShuffle = () => {
 };
 
 const currentPlay = ref(0);
-const selectedCategory = ref("acoustic");
+const selectedCategory = ref(categories.findIndex((item) => item.attributes.slug == 'acoustic') >= 0 ? "acoustic" : categories[0].attributes.slug);
 const selectedSong = ref([]);
 const showSong = ref([]);
 const songLists = ref([]);
-const currentCategory = ref('acoustic');
+const currentCategory = ref(categories.findIndex((item) => item.attributes.slug == 'acoustic') >= 0 ? "acoustic" : categories[0].attributes.slug);
 
-const playAudio = () => {
+const categoryIndex = ref(categories.findIndex((item) => item.attributes.slug == 'acoustic'))
+if (categoryIndex.value <= 0) {
+  categoryIndex.value = 0
+}
+
+const playAudio = 
+() => {
   isPlay.value = true;
   musicBackground.value.play();
   timerStart()
@@ -214,16 +222,20 @@ const open = async () => {
     isInit.value = true;
   }, 500);
 
-  const res = await update("guests", selectedGuest.value.id, {
+  const res = await update("guests-data", route.params.guest, {
     is_open: true,
   });
 };
 const submitRSVP = async (data) => {
-  const res = await update("guests", selectedGuest.value.id, {
+  const res = await update("guests-data", route.params.guest, {
     can_come: data.can_come,
     person_come: data.can_come ? data.person : 0,
     is_confirm_rsvp: true,
   });
+
+  selectedGuest.value.can_come = data.can_come
+  selectedGuest.value.person_come = data.person
+  selectedGuest.value.is_confirm_rsvp = true
 
   showToast({
     type: 'success',
@@ -233,7 +245,7 @@ const submitRSVP = async (data) => {
 };
 
 const updateRSVP = async (data) => {
-  const res = await update("guests", selectedGuest.value.id, {
+  const res = await update("guests-data", route.params.guest, {
     can_come: data.can_come,
     person_come: data.can_come ? data.person : 0,
     is_confirm_rsvp: true,
@@ -247,7 +259,7 @@ const updateRSVP = async (data) => {
 };
 
 const onSendWish = async () => {
-  const res = await update("guests", selectedGuest.value.id, {
+  const res = await update("guests-data", route.params.guest, {
     is_sent_wish: true,
   });
 
@@ -311,9 +323,9 @@ const timerStart = () => {
 </script>
 
 <template>
-  <div class="w-full overflow-x-hidden relative">
-    <div ref="cover" class="fixed z-50 cover-invitation inset-0 transition-all duration-1000">
-      <Cover :guest="invitation" :category="categories" @openInvitation="open" @play="playNewMusic" />
+  <div class="w-full overflow-x-hidden relative overflow-y-hidden">
+    <div ref="cover" class="fixed z-50 cover-invitation overflow-hidden inset-0 transition-all duration-1000">
+      <Cover :initCategory="categoryIndex" :guest="invitation" :category="categories" @openInvitation="open" @play="playNewMusic" />
     </div>
     <div>
       <div v-if="openCover" ref="opening" class="flex flex-col overflow-hidden">
@@ -336,18 +348,6 @@ const timerStart = () => {
           Your browser does not support the audio element.
         </audio>
         <div class="flex flex-col gap-3" v-show="!isFirstPlay">
-          <div @click="timerStart" class="
-                          cursor-pointer
-                          bg-white
-                          text-primary-light
-                          border-primary border
-                          p-3
-                          rounded-full
-                          h-12
-                          w-12
-                        ">
-            <List />
-          </div>
           <div @click="openPlaylist" class="
                           cursor-pointer
                           bg-white
@@ -421,8 +421,6 @@ const timerStart = () => {
         </div>
       </transition>
     </div>
-
-
     <div>
       <div
         :class="`fixed transition-all duration-500 border-2 ${toastType === 'success' ? 'border-primary-light' : (toastType === 'danger' ? 'border-red-700' : 'border-gray-700')} ${toastShow ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} z-100 top-8 inset-x-0 w-5/6 shadow-lg md:w-full max-w-md lg:max-w-xl bg-white p-2 gap-1 rounded-xl flex mx-auto items-center`">

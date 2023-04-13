@@ -19,8 +19,11 @@ const form = ref({
   person: props.guest.is_confirm_rsvp ? props.guest.person_come : 1,
 });
 
+const is_confirm = ref(props.guest?.is_confirm_rsvp)
+
 const submitRSVP = () => {
   emit("submit", form.value);
+  is_confirm.value = true
 };
 
 const updateRSVP = () => {
@@ -67,7 +70,7 @@ const updateRSVP = () => {
             RSVP
           </h2>
           <h6
-            v-if="guest.is_confirm_rsvp"
+            v-if="is_confirm"
             class="
               font-lora
               text-center text-gray-800/80 text-xs
@@ -185,18 +188,18 @@ const updateRSVP = () => {
             </div>
           </div>
           <div
-            @click="guest.is_confirm_rsvp ? updateRSVP() : submitRSVP()"
+            @click="is_confirm ? updateRSVP() : submitRSVP()"
             class="cursor-pointer"
           >
             <div
               :class="{
-                'bg-primary-light text-white ': !guest.is_confirm_rsvp,
+                'bg-primary-light text-white ': !is_confirm,
                 'bg-primary/20 text-primary-light pale border border-primary-light':
-                  guest.is_confirm_rsvp,
+                  is_confirm,
               }"
               class="py-3 px-4 rounded-lg font-lora text-center"
             >
-              {{ guest.is_confirm_rsvp ? "Perbarui" : "Kirim" }}
+              {{ is_confirm ? "Perbarui" : "Kirim" }}
             </div>
           </div>
         </div>

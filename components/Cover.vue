@@ -1,7 +1,6 @@
 <script setup>
 const { find, findOne } = useStrapi();
 const logo = ref(null)
-const selectedMusic = ref(1);
 const runtimeConfig = useRuntimeConfig();
 const strapi_url = runtimeConfig.public.strapiURL;
 
@@ -15,10 +14,12 @@ const getLogo = async () => {
 };
 
 const props = defineProps({
+  initCategory: Number,
   guest: Object,
   category: Array,
 });
 
+const selectedMusic = ref(props.initCategory || 0);
 const musicCategories = props.category;
 
 const selectMusic = (index) => {
