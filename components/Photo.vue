@@ -84,13 +84,10 @@ const onMovePhoto = (e) => {
 const onSelectPhoto = (photo) => {
   selectedPhoto.value = photo
   isShowSelectedPhoto.value = true
-  console.log(isShowSelectedPhoto.value, selectedPhoto.value);
 }
 
 const closeSelectedPhoto = () => {
   isShowSelectedPhoto.value = false
-
-  console.log(isShowSelectedPhoto.value);
   // selectedPhoto.value = {}
 }
 
@@ -119,7 +116,7 @@ const splideOption = {
         <SplideSlide v-for="(item, idx) in photos" :key="idx">
           <div
             class="transition-all flex flex-col group md:hover:rotate-3 items-center duration-500 rounded-lg">
-            <img class="h-[32vh] group-hover:scale-90 transition-all duration-1000 group-hover:duration-300 object-scale-down cursor-pointer rounded-lg" :src="strapi_url + item.attributes.url"
+            <img class="h-[32vh] w-full max-w-[80vw] md:max-w-none group-hover:scale-90 transition-all duration-1000 group-hover:duration-300 object-cover md:object-scale-down cursor-pointer rounded-lg" :src="strapi_url + item.attributes.url"
               @click="onSelectPhoto(item)" alt="" srcset="" />
           </div>
         </SplideSlide>
@@ -138,7 +135,7 @@ const splideOption = {
       <Splide :options="splideOption" aria-label="My Favorite Images">
         <SplideSlide v-for="(item, idx) in bigPhotos" :key="idx">
           <div class="group md:hover:-rotate-2 hover:-translate-y-2 h-[36vh] transition-all duration-1000 hover:scale-90 hover:duration-300 md:h-[46vh] max-w-lg object-scale-down rounded-lg overflow-hidden">
-            <img class="w-full h-full transition-all duration-1000 group-hover:duration-300 object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
+            <img class="max-w-[60vw] md:w-full h-full transition-all duration-1000 group-hover:duration-300 object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
               @click="onSelectPhoto(item)" alt="" srcset="" />
           </div>
         </SplideSlide>
