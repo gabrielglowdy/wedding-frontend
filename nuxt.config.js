@@ -1,25 +1,3 @@
-var XMLHttpRequest = require('xhr2');
-const getRoutes = async () => {
-  const url = "http://localhost:1337/api/guests";
-  const res = await new Promise((resolve) => {
-    let xobj = new XMLHttpRequest();
-    xobj.open('GET', url);
-    xobj.onreadystatechange = async () => {
-      if (xobj.readyState == 4 && xobj.status == "200") {
-        const routeLists = [];
-        const json = JSON.parse(xobj.responseText);
-        json.data.forEach(element => {
-          routeLists.push('/guest/' + element.attributes.slug)
-        });
-        resolve(routeLists)
-      }
-    };
-    xobj.send();
-  })
-
-  return res;
-}
-
 export default defineNuxtConfig({
   app: {
     head: {
@@ -48,7 +26,11 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/strapi',
+    '@nuxt/image-edge'
   ],
+  image: {
+    domains: [process.env.STRAPI_URL, 'http://localhost:1337']
+  },
   strapi: {
     url: process.env.STRAPI_URL || `http://localhost:1337`,
     entities: ['guests'],

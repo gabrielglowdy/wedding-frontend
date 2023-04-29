@@ -8,10 +8,11 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxt/image-edge": "^1.0.0-28020728.5df24eb",
     "@nuxtjs/google-fonts": "^2.0.0",
     "@nuxtjs/tailwindcss": "^6.2.0",
     "autoprefixer": "^10.4.13",
-    "nuxt": "3.0.0",
+    "nuxt": "^3.4.3",
     "postcss": "^8.4.21",
     "sass": "^1.57.1",
     "tailwind-scrollbar": "^2.1.0",
@@ -20,13 +21,16 @@
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.1.0",
     "@headlessui/vue": "^1.7.7",
-    "@nuxtjs/strapi": "^1.6.3",
+    "@nuxtjs/strapi": "^1.9.1",
+    "@splidejs/vue-splide": "^0.6.12",
     "@tailwindcss/forms": "^0.5.3",
+    "@unhead/vue": "^1.1.26",
     "aos": "^2.3.4",
     "dayjs": "^1.11.7",
     "swiper": "^8.4.5",
     "vue": "^3.2.45",
     "vue-kinesis": "^2.0.5",
+    "vue-router": "4",
     "xhr2": "^0.2.1"
   }
 }

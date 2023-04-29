@@ -1,4 +1,15 @@
 <script setup>
+import {
+  TransitionRoot,
+  TransitionChild,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+} from '@headlessui/vue'
+
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import '@splidejs/vue-splide/css';
+
 const props = defineProps({
   photos: Array,
   bigPhotos: Array,
@@ -15,6 +26,10 @@ const isDownPhoto = ref(false);
 const startXPhoto = ref(0);
 const scrollLeftPhoto = ref(null);
 const photosElem = ref();
+
+const isShowSelectedPhoto = ref(false)
+const selectedPhotoUrl = ref('')
+const selectedPhoto = ref({})
 
 const onDownBigPhoto = (e) => {
   isDownBigPhoto.value = true;
@@ -65,18 +80,30 @@ const onMovePhoto = (e) => {
   const walk = (x - startXPhoto.value) * 1.5;
   photosElem.value.scrollLeft = scrollLeftPhoto.value - walk;
 };
+
+const onSelectPhoto = (photo) => {
+  selectedPhoto.value = photo
+  isShowSelectedPhoto.value = true
+  console.log(isShowSelectedPhoto.value, selectedPhoto.value);
+}
+
+const closeSelectedPhoto = () => {
+  isShowSelectedPhoto.value = false
+
+  console.log(isShowSelectedPhoto.value);
+  // selectedPhoto.value = {}
+}
+
+const splideOption = {
+  rewind: true,
+  autoWidth: true,
+  gap: '0.75em',
+}
 </script>
 <template>
   <div class="px-8 md:px-16 pb-8 flex flex-col gap-4">
-    <div
-      v-if="photos && photos.length > 0"
-      ref="photosElem"
-      data-aos-anchor-placement="top-bottom" data-aos-delay="150" data-aos-duration="450" data-aos-easing="ease-in-out"
-      @mousedown="onDownPhoto"
-      @mouseleave="onLeavePhoto"
-      @mouseup="onLeavePhoto"
-      @mousemove="onMovePhoto"
-      class="
+    <div v-if="photos && photos.length > 0" ref="photosElem" data-aos-anchor-placement="top-bottom" data-aos-delay="150"
+      data-aos-duration="450" data-aos-easing="ease-in-out" class="
         md:max-w-4xl md:mx-auto md:mt-3
         overflow-scroll
         cursor-grab
@@ -85,30 +112,17 @@ const onMovePhoto = (e) => {
         scrollbar-thumb-primary-light/80
         scrollbar-thumb-rounded-full
         pb-3
-      "
-    >
-      <div class="flex gap-4 w-full">
-        <div
-          v-for="(item, idx) in photos"
-          :key="idx"
-          class="flex-none w-[200px] rounded-lg overflow-hidden"
-        >
-          <img
-            class="w-full h-64 object-cover"
-            :src="strapi_url + item.attributes.url"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </div>
+      ">
+      <Splide :options="splideOption" aria-label="My Favorite Images">
+        <SplideSlide v-for="(item, idx) in photos" :key="idx">
+          <div class="h-[36vh] max-w-md object-scale-down rounded-lg overflow-hidden">
+            <nuxt-img class="w-full h-full object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
+              @click="onSelectPhoto(item)" alt="" srcset="" />
+          </div>
+        </SplideSlide>
+      </Splide>
     </div>
-    <div
-      ref="bigPhotosElem"
-      @mousedown="onDownBigPhoto"
-      @mouseleave="onLeaveBigPhoto"
-      @mouseup="onLeaveBigPhoto"
-      @mousemove="onMoveBigPhoto"
-      class="
+    <div ref="bigPhotosElem" class="
         md:max-w-4xl md:mx-auto md:mt-3
         overflow-scroll
         cursor-grab
@@ -117,22 +131,63 @@ const onMovePhoto = (e) => {
         scrollbar-thumb-primary-light/80
         scrollbar-thumb-rounded-full
         pb-3
-      "
-    >
-      <div class="flex gap-3 w-full">
-        <div
-          v-for="(item, idx) in bigPhotos"
-          :key="idx"
-          class="flex-none w-[76vw] md:w-[400px] rounded-lg overflow-hidden"
-        >
-          <img
-            class="w-full h-96 object-cover"
-            :src="strapi_url + item.attributes.url"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </div>
+      ">
+      <Splide :options="splideOption" aria-label="My Favorite Images">
+        <SplideSlide v-for="(item, idx) in bigPhotos" :key="idx">
+          <div class="h-[36vh] md:h-[46vh] max-w-lg object-scale-down rounded-lg overflow-hidden">
+            <nuxt-img class="w-full h-full object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
+              @click="onSelectPhoto(item)" alt="" srcset="" />
+          </div>
+        </SplideSlide>
+      </Splide>
+    </div>
+
+    <div class="">
+      <TransitionRoot :show="isShowSelectedPhoto && !!selectedPhoto" as="template" enter="duration-300 ease-out"
+        enter-from="opacity-0" enter-to="opacity-100" leave="duration-200 ease-in" leave-from="opacity-100"
+        leave-to="opacity-0">
+        <Dialog as="div" @close="closeSelectedPhoto" class="relative z-50">
+          <TransitionChild enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
+            leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
+            <div class="fixed inset-0 bg-black/30" />
+          </TransitionChild>
+
+          <div class="fixed inset-0 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-3 text-center">
+              <TransitionChild enter="duration-500 ease-out" enter-from="opacity-0 scale-95"
+                enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100"
+                leave-to="opacity-0 scale-95">
+                <DialogPanel
+                  class="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <DialogTitle>
+                    <div class="flex items-center gap-3">
+                      <h6 class="flex-auto text-lg font-lora">{{ selectedPhoto.attributes.alternativeText || selectedPhoto.attributes.caption || `Foto
+                        Prewedding` }}</h6>
+                      <div @click="closeSelectedPhoto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="w-6 h-6 cursor-pointer">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  </DialogTitle>
+
+                  <div class="mt-4 flex gap-3">
+                    <img class="max-h-[80vh] w-auto object-scale-down flex-auto rounded-md"
+                      :src="strapi_url + selectedPhoto.attributes.url" alt="" srcset="">
+                  </div>
+
+                  <div class="mt-4" v-if="selectedPhoto.attributes.caption">
+                    <div class="flex flex-col flex-auto items-center">
+                      <h6 class="font-lora italic">{{ selectedPhoto.attributes.caption }}</h6>
+                    </div>
+                  </div>
+                </DialogPanel>
+              </TransitionChild>
+            </div>
+          </div>
+        </Dialog>
+      </TransitionRoot>
     </div>
   </div>
 </template>
