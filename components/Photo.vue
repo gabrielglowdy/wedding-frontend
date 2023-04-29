@@ -119,7 +119,7 @@ const splideOption = {
         <SplideSlide v-for="(item, idx) in photos" :key="idx">
           <div
             class="transition-all flex flex-col group md:hover:rotate-3 items-center duration-500 rounded-lg">
-            <nuxt-img class="h-[32vh] group-hover:scale-90 transition-all duration-1000 group-hover:duration-300 object-scale-down cursor-pointer rounded-lg" :src="strapi_url + item.attributes.url"
+            <img class="h-[32vh] group-hover:scale-90 transition-all duration-1000 group-hover:duration-300 object-scale-down cursor-pointer rounded-lg" :src="strapi_url + item.attributes.url"
               @click="onSelectPhoto(item)" alt="" srcset="" />
           </div>
         </SplideSlide>
@@ -138,7 +138,7 @@ const splideOption = {
       <Splide :options="splideOption" aria-label="My Favorite Images">
         <SplideSlide v-for="(item, idx) in bigPhotos" :key="idx">
           <div class="group md:hover:-rotate-2 hover:-translate-y-2 h-[36vh] transition-all duration-1000 hover:scale-90 hover:duration-300 md:h-[46vh] max-w-lg object-scale-down rounded-lg overflow-hidden">
-            <nuxt-img class="w-full h-full transition-all duration-1000 group-hover:duration-300 object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
+            <img class="w-full h-full transition-all duration-1000 group-hover:duration-300 object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
               @click="onSelectPhoto(item)" alt="" srcset="" />
           </div>
         </SplideSlide>
