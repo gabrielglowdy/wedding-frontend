@@ -339,6 +339,7 @@ const timerStart = () => {
         <Wish @toast="showToast" :name="invitation.name" :slug="invitation.slug"
           :is_sent="selectedGuest.attributes.is_sent_wish" @send="onSendWish" />
         <Closing />
+        <Watermark />
       </div>
       <div class="fixed bottom-12 z-40 right-3">
         <audio ref="musicBackground" id="music">

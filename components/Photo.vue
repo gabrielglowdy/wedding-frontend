@@ -98,6 +98,8 @@ const splideOption = {
   rewind: true,
   autoWidth: true,
   gap: '0.75em',
+  pagination: false,
+  autoplay: true
 }
 </script>
 <template>
@@ -115,8 +117,9 @@ const splideOption = {
       ">
       <Splide :options="splideOption" aria-label="My Favorite Images">
         <SplideSlide v-for="(item, idx) in photos" :key="idx">
-          <div class="h-[36vh] max-w-md object-scale-down rounded-lg overflow-hidden">
-            <nuxt-img class="w-full h-full object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
+          <div
+            class="transition-all flex flex-col group md:hover:rotate-3 items-center duration-500 rounded-lg">
+            <nuxt-img class="h-[32vh] group-hover:scale-90 transition-all duration-1000 group-hover:duration-300 object-scale-down cursor-pointer rounded-lg" :src="strapi_url + item.attributes.url"
               @click="onSelectPhoto(item)" alt="" srcset="" />
           </div>
         </SplideSlide>
@@ -134,8 +137,8 @@ const splideOption = {
       ">
       <Splide :options="splideOption" aria-label="My Favorite Images">
         <SplideSlide v-for="(item, idx) in bigPhotos" :key="idx">
-          <div class="h-[36vh] md:h-[46vh] max-w-lg object-scale-down rounded-lg overflow-hidden">
-            <nuxt-img class="w-full h-full object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
+          <div class="group md:hover:-rotate-2 hover:-translate-y-2 h-[36vh] transition-all duration-1000 hover:scale-90 hover:duration-300 md:h-[46vh] max-w-lg object-scale-down rounded-lg overflow-hidden">
+            <nuxt-img class="w-full h-full transition-all duration-1000 group-hover:duration-300 object-cover cursor-pointer" :src="strapi_url + item.attributes.url"
               @click="onSelectPhoto(item)" alt="" srcset="" />
           </div>
         </SplideSlide>
@@ -161,7 +164,8 @@ const splideOption = {
                   class="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <DialogTitle>
                     <div class="flex items-center gap-3">
-                      <h6 class="flex-auto text-lg font-lora">{{ selectedPhoto.attributes.alternativeText || selectedPhoto.attributes.caption || `Foto
+                      <h6 class="flex-auto text-lg font-lora line-clamp-1">{{ selectedPhoto.attributes.alternativeText ||
+                        selectedPhoto.attributes.caption || `Foto
                         Prewedding` }}</h6>
                       <div @click="closeSelectedPhoto">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -172,15 +176,11 @@ const splideOption = {
                     </div>
                   </DialogTitle>
 
-                  <div class="mt-4 flex gap-3">
-                    <img class="max-h-[80vh] w-auto object-scale-down flex-auto rounded-md"
+                  <div class="mt-4 flex flex-col max-h-[76vh] gap-3 justify-center items-center">
+                    <img class="flex-auto h-full max-h-[64vh] md:h-auto w-auto object-scale-down rounded-md"
                       :src="strapi_url + selectedPhoto.attributes.url" alt="" srcset="">
-                  </div>
 
-                  <div class="mt-4" v-if="selectedPhoto.attributes.caption">
-                    <div class="flex flex-col flex-auto items-center">
-                      <h6 class="font-lora italic">{{ selectedPhoto.attributes.caption }}</h6>
-                    </div>
+                    <h6 v-if="selectedPhoto.attributes.caption" class="font-lora italic text-dark/80">{{ selectedPhoto.attributes.caption }}</h6>
                   </div>
                 </DialogPanel>
               </TransitionChild>
