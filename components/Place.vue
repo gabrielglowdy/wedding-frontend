@@ -69,8 +69,8 @@ const getHour = (hour_string) => {
           data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
         <div class="flex flex-col items-center gap-3">
           <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="600"
-            data-aos-easing="ease-in-out" class="text-4xl font-moon-dance text-gray-800/80">
-            {{ dayjs(data?.date).format("dddd") }}
+            data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-3 text-gray-800/80">
+            {{ dayjs(data?.akad_date).format("dddd") }}
           </h6>
           <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="600"
             data-aos-easing="ease-in-out" class="text-4xl font-satisfy text-primary-light">

@@ -229,7 +229,7 @@ const open = async () => {
 const submitRSVP = async (data) => {
   const res = await update("guests-data", route.params.guest, {
     can_come: data.can_come,
-    person_come: data.can_come ? data.person : 0,
+    // person_come: data.can_come ? data.person : 0,
     is_confirm_rsvp: true,
   });
 
@@ -345,7 +345,7 @@ const timerStart = () => {
         <audio ref="musicBackground" id="music">
           <source :src="
             selectedSong.length > 0 ? selectedSong[currentPlay].src : null
-          " :type="selectedSong.length > 0 ? selectedSong[currentPlay]?.mime : 'audio/mpeg'" />
+          " :type="selectedSong.length > 0 ? selectedSong[currentPlay]?.mime : 'audio/mpeg'"/>
           Your browser does not support the audio element.
         </audio>
         <div class="flex flex-col gap-3" v-show="!isFirstPlay">

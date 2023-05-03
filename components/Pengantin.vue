@@ -84,7 +84,7 @@ const props = defineProps({
           ({{ data.bride_address }})
         </h6>
       </div>
-      <h6 data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-4xl font-satisfy mt-2 text-primary-light">&</h6>
+      <h6 data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-4xl font-satisfy mt-2 text-primary-light w-full text-center">&</h6>
       <div class="flex flex-col items-center flex-auto">
         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-easing="ease-in-out" class="relative">
           <div

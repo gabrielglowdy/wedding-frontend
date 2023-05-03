@@ -155,38 +155,6 @@ const updateRSVP = () => {
               </h6>
             </div>
           </div>
-          <div class="flex flex-col gap-2">
-            <label for="pesan" class="text-lg font-lora text-gray-800/80"
-              >Jumlah Tamu</label
-            >
-            <div class="flex gap-2">
-              <RadioGroup
-                v-model="form.person"
-                :disabled="!form.can_come"
-                class="flex gap-2 flex-wrap mt-2"
-              >
-                <RadioGroupOption
-                  v-slot="{ checked }"
-                  :value="item"
-                  v-for="(item, index) in person_array"
-                  :key="index"
-                >
-                  <span
-                    class="px-3 py-2 cursor-pointer rounded-lg font-lora"
-                    :class="{
-                      'bg-primary/20 text-primary-light border border-primary-light':
-                        checked && form.can_come,
-                      'bg-gray-100 text-gray-400 border border-gray-300':
-                        !form.can_come,
-                      'text-gray-800 border border-white':
-                        !checked && form.can_come,
-                    }"
-                    >{{ item }} orang</span
-                  >
-                </RadioGroupOption>
-              </RadioGroup>
-            </div>
-          </div>
           <div
             @click="is_confirm ? updateRSVP() : submitRSVP()"
             class="cursor-pointer"
