@@ -318,7 +318,7 @@ const timerStart = () => {
   const second = parseInt(timesplit[0] * 60 * 1000) + parseInt(timesplit[1] * 1000)
   const currentSrc = selectedSong.value[currentPlay.value].src
   setTimeout(() => {
-    if (currentSrc === selectedSong.value[currentPlay.value].src) {
+    if ( isPlay.value && currentSrc === selectedSong.value[currentPlay.value].src) {
       onEnded()
     }
   }, second);
@@ -366,7 +366,7 @@ useServerSeoMeta({
         <Watermark />
       </div>
       <div class="fixed bottom-12 z-40 right-3">
-        <audio ref="musicBackground" id="music">
+        <audio ref="musicBackground" id="music" @ended="onEnded">
           <source :src="selectedSong.length > 0 ? selectedSong[currentPlay].src : null
             " :type="selectedSong.length > 0 ? selectedSong[currentPlay]?.mime : 'audio/mpeg'" />
           Your browser does not support the audio element.
