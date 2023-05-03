@@ -6,7 +6,10 @@ export default defineNuxtConfig({
       title: 'The Wedding of Lilla & Gabriel',
       meta: [
         // <meta name="description" content="My amazing site">
-        { name: 'description', content: 'Undangan Pernikahan Lilla & Gabriel' }
+        { name: 'description', content: 'Undangan Pernikahan Lilla & Gabriel' },
+        { name: 'og:description', content: 'Undangan Pernikahan Lilla & Gabriel' },
+        { name: 'og:image', content: 'https://content.lillagabriel.com/uploads/IMG_1976_b2e1c07ce6.jpg?updated_at=2023-05-03T15:36:15.427Z'  },
+        { name: 'twitter:card', content: `summary_large_image` },
       ],
       link: [
         {
