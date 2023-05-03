@@ -5,6 +5,7 @@ import { onMounted } from "@vue/runtime-core";
 const route = useRoute();
 const runtimeConfig = useRuntimeConfig();
 const strapi_url = runtimeConfig.public.strapiURL;
+const thumbnail_url = runtimeConfig.public.thumbnail_url;
 const openInvitation = ref(false);
 const openCover = ref(false);
 const cover = ref();
@@ -73,12 +74,12 @@ if (categoryIndex.value <= 0) {
   categoryIndex.value = 0
 }
 
-const playAudio = 
-() => {
-  isPlay.value = true;
-  musicBackground.value.play();
-  timerStart()
-};
+const playAudio =
+  () => {
+    isPlay.value = true;
+    musicBackground.value.play();
+    timerStart()
+  };
 
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
@@ -209,7 +210,9 @@ const open = async () => {
   if (!cover) {
     return false;
   }
-  await getDetail();
+  if (!detail.value) {
+    await getDetail();
+  }
   openCover.value = true;
   openInvitation.value = true;
   setTimeout(() => {
@@ -285,7 +288,7 @@ const showToast = (data) => {
   }, 3000);
 }
 
-const onChangeCategory = async(val) => {
+const onChangeCategory = async (val) => {
   selectedCategory.value = val
   getSongList()
 }
@@ -307,7 +310,7 @@ const getSongList = () => {
 
 const timerStart = () => {
   const currentData = selectedSong.value[currentPlay.value]
-  const time = currentData.duration;  
+  const time = currentData.duration;
   if (!time.includes(':')) {
     return false
   }
@@ -320,12 +323,33 @@ const timerStart = () => {
     }
   }, second);
 }
+
+useHead({
+  title: 'Undangan Pernikahan Lilla & Gabriel untuk ' + invitation.value.name,
+  meta: [
+    { property: 'og:title', content: `Undangan Pernikahan Lilla & Gabriel untuk ${invitation.value.name}` },
+    { property: 'description', content: `Undangan untuk ${invitation.value.name}` },
+    { property: 'og:description', content: `Undangan untuk ${invitation.value.name}` },
+    { property: 'og:image', content: thumbnail_url },
+    { property: 'twitter:card', content: `summary_large_image` },
+  ]
+})
+
+useServerSeoMeta({
+  title: 'Undangan Pernikahan Lilla & Gabriel untuk ' + invitation.value.name,
+  ogTitle: 'Undangan Pernikahan Lilla & Gabriel untuk ' + invitation.value.name,
+  description: 'Undangan untuk ' + invitation.value.name,
+  ogDescription: 'Undangan untuk ' + invitation.value.name,
+  ogImage: thumbnail_url,
+  twitterCard: 'summary_large_image',
+})
 </script>
 
 <template>
   <div class="w-full overflow-x-hidden relative overflow-y-hidden">
     <div ref="cover" class="fixed z-50 cover-invitation overflow-hidden inset-0 transition-all duration-1000">
-      <Cover :initCategory="categoryIndex" :guest="invitation" :category="categories" @openInvitation="open" @play="playNewMusic" />
+      <Cover :initCategory="categoryIndex" :guest="invitation" :category="categories" @openInvitation="open"
+        @play="playNewMusic" />
     </div>
     <div>
       <div v-if="openCover" ref="opening" class="flex flex-col overflow-hidden">
@@ -343,9 +367,8 @@ const timerStart = () => {
       </div>
       <div class="fixed bottom-12 z-40 right-3">
         <audio ref="musicBackground" id="music">
-          <source :src="
-            selectedSong.length > 0 ? selectedSong[currentPlay].src : null
-          " :type="selectedSong.length > 0 ? selectedSong[currentPlay]?.mime : 'audio/mpeg'"/>
+          <source :src="selectedSong.length > 0 ? selectedSong[currentPlay].src : null
+            " :type="selectedSong.length > 0 ? selectedSong[currentPlay]?.mime : 'audio/mpeg'" />
           Your browser does not support the audio element.
         </audio>
         <div class="flex flex-col gap-3" v-show="!isFirstPlay">
@@ -399,9 +422,10 @@ const timerStart = () => {
         </div>
       </div>
 
-      <SidePlaylist @select="selectSong" :currentCategory="currentCategory" :selected-category="selectedCategory" @selectCategory="onChangeCategory" :categories="categories" :songs="showSong" :selectedSong="currentPlay" :show="isOpenPlaylist"
-        :isShuffle="isShuffle" :isPlay="isPlay" @toggle:shuffle="toggleShuffle" @toggle:play="toggleAudio" @next="onEnded"
-        @close="closePlaylist" />
+      <SidePlaylist @select="selectSong" :currentCategory="currentCategory" :selected-category="selectedCategory"
+        @selectCategory="onChangeCategory" :categories="categories" :songs="showSong" :selectedSong="currentPlay"
+        :show="isOpenPlaylist" :isShuffle="isShuffle" :isPlay="isPlay" @toggle:shuffle="toggleShuffle"
+        @toggle:play="toggleAudio" @next="onEnded" @close="closePlaylist" />
       <transition name="fade">
         <div v-show="isPlay" class="
                         fixed

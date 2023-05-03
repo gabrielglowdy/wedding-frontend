@@ -74,7 +74,7 @@ const getHour = (hour_string) => {
           </h6>
           <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="600"
             data-aos-easing="ease-in-out" class="text-4xl font-satisfy text-primary-light">
-            {{ dayjs(data?.akad_date).format("DD MMM YYYY") }}
+            {{ dayjs(data?.akad_date).format("DD MMMM YYYY") }}
           </h6>
         </div>
         <Line data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="850" data-aos-duration="500"
