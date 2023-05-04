@@ -1,3 +1,11 @@
+<script setup>
+const props = defineProps({
+  data: {
+    type: Object,
+    defualt: null
+  }
+})
+</script>
 <template>
   <div>
     <div class="relative w-full h-screen p-8 bg-gray-800">
@@ -23,7 +31,7 @@
               mt-4
               md:mt-16
               font-lora
-              text-md
+              text-sm
               md:text-lg
             "
           >
@@ -32,20 +40,20 @@
           </p>
 
           <div>
-            <p class="mt-8 text-md md:text-xl font-lora px-2 md:px-8">
-              Keluarga Bapak Pulung Suwandaru &
+            <p class="mt-8 text-sm md:text-xl font-lora px-2 md:px-8">
+              Keluarga {{ data.father_label }} {{ data.bride_father }} &
             </p>
-            <p class="text-md md:text-xl font-lora px-16">
-              Ibu Nuraini Pangewa
+            <p class="text-sm md:text-xl font-lora px-16">
+              {{ data.mother_label }} {{ data.bride_mother }}
             </p>
           </div>
           <p class="my-1 md:my-3 text-4xl font-lora">&</p>
           <div>
-            <p class="text-md md:text-xl font-lora px-2 md:px-8">
-              Keluarga Bapak Muhammad Dawam Ichsan &
+            <p class="text-sm md:text-xl font-lora md:px-8">
+              Keluarga {{ data.father_label }} {{ data.groom_father }} &
             </p>
-            <p class="text-md md:text-xl font-lora px-16">
-              Ibu Listiyawati Suherini
+            <p class="text-sm md:text-xl font-lora px-16">
+              {{ data.mother_label }} {{ data.groom_mother }}
             </p>
           </div>
           <div>

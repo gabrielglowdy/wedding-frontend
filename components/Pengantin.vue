@@ -129,7 +129,7 @@ const props = defineProps({
         <div class="">
           <h6
             data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-delay="550" data-aos-duration="650" data-aos-easing="ease-in-out"
-            class="text-sm md:text-md mt-1 px-4 md:px-12 text-center font-lora"
+            class="text-sm md:text-md mt-1 md:px-12 text-center font-lora"
           >
             {{ data.groom_label }} {{ data.father_label }} {{ data.groom_father }}
           </h6>
