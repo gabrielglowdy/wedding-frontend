@@ -104,7 +104,7 @@ const selectCategory = (type) => {
           </div>
           <div class="flex flex-wrap items-center gap-3 mb-3 justify-center">
             <div v-for="(item, index) in categories.filter((item) => item.attributes.slug !== 'mute')" :key="index">
-              <div @click="selectCategory(item.attributes.slug)" :class="`font-lora text-dark/80 capitalize pb-2 transition-all duration-500 border-b-2 ${selectedCategory === item.attributes.slug ? 'border-primary': 'border-transparent'} `" >{{ item.attributes.name }}</div>
+              <div @click="selectCategory(item.attributes.slug)" :class="`font-lora cursor-pointer text-dark/80 capitalize pb-2 transition-all duration-500 border-b-2 ${selectedCategory === item.attributes.slug ? 'border-primary': 'border-transparent'} `" >{{ item.attributes.name }}</div>
             </div>
           </div>
           <div
