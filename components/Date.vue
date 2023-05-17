@@ -1,7 +1,17 @@
 <script setup>
 import VueCountdown from "@chenfengyuan/vue-countdown";
 
-const date = Date.parse("03 Jun 2023 10:00:00 GMT+7");
+const props = defineProps({
+  date: {
+    type: String,
+    default: "03 Jun 2023 10:00:00 GMT+7"
+  },
+  color: {
+    type: String,
+    default: 'primary'
+  }
+})
+const date = Date.parse(props.date);
 const dateNow = new Date().getTime();
 const dateDiff = date - dateNow;
 </script>
@@ -14,13 +24,13 @@ const dateDiff = date - dateNow;
       data-aos-delay="150"
       data-aos-duration="450"
       data-aos-easing="ease-in-out"
-      class="
+      :class="`
         bg-white
         p-8
-        border border-primary-light
+        border ${color === 'terracotta' ? 'border-primary-terracotta' : 'border-primary-light'}
         rounded-lg
         md:max-w-xl md:mx-auto
-      "
+      `"
     >
       <ClientOnly>
         <vue-countdown
@@ -29,19 +39,19 @@ const dateDiff = date - dateNow;
         >
           <div class="grid grid-cols-4 gap-3 items-center font-lora">
             <div class="flex flex-col items-center">
-              <h5 class="text-3xl text-primary-light">{{ days }}</h5>
+              <h5 :class="`text-3xl ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">{{ days }}</h5>
               <h5 class="text-gray-800/80">Hari</h5>
             </div>
             <div class="flex flex-col items-center">
-              <h5 class="text-3xl text-primary-light">{{ hours }}</h5>
+              <h5 :class="`text-3xl ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">{{ hours }}</h5>
               <h5 class="text-gray-800/80">Jam</h5>
             </div>
             <div class="flex flex-col items-center">
-              <h5 class="text-3xl text-primary-light">{{ minutes }}</h5>
+              <h5 :class="`text-3xl ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">{{ minutes }}</h5>
               <h5 class="text-gray-800/80">Menit</h5>
             </div>
             <div class="flex flex-col items-center">
-              <h5 class="text-3xl text-primary-light">{{ seconds }}</h5>
+              <h5 :class="`text-3xl ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">{{ seconds }}</h5>
               <h5 class="text-gray-800/80">Detik</h5>
             </div>
           </div>
@@ -56,7 +66,7 @@ const dateDiff = date - dateNow;
         data-aos-duration="750"
         data-aos-easing="ease-in-out"
         href="https://calendar.google.com/calendar/render?action=TEMPLATE&dates=20230603T030000Z%2F20230603T053000Z&details=&location=Gedung%20BK3S%20Jatim%2C%20Jalan%20Raya%20Tenggilis%2C%20Tenggilis%20Mejoyo%2C%20Surabaya%20City%2C%20East%20Java&text=Undangan%20Pernikahan%20Lilla%20Gabriel"
-        class="bg-primary-light py-3 font-lora text-white px-6 rounded-full mx-auto flex items-center gap-2"
+        :class="`${ color === 'terracotta' ? 'bg-primary-terracotta' : 'bg-primary-light'} py-3 font-lora text-white px-6 rounded-full mx-auto flex items-center gap-2`"
       >
         <span>
           <svg

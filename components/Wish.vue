@@ -7,6 +7,10 @@ const props = defineProps({
   is_sent: {
     type: Boolean,
     default: false
+  },
+  color: {
+    type: String,
+    default: 'primary'
   }
 })
 
@@ -23,7 +27,7 @@ const errorText = ref('');
 const { create, find, update } = useStrapi();
 const emit = defineEmits();
 
-const getWishes = async(limit=10) => {
+const getWishes = async(limit=300) => {
   wishes.value =  (await find(`wishes?sort[0]=id%3Adesc&sort[1]=createdAt%3Adesc&pagination[pageSize]=${limit}`)).data
 }
 
@@ -90,14 +94,14 @@ onMounted(() => {
         "
       >
         <div
-          class="
-            h-full
+          :class="
+            `h-full
             bg-white
             shadow-md
             transition-all
             duration-300
             hover:shadow-lg
-            border border-primary-light
+            border ${ color === 'terracotta' ? 'border-primary-terracotta' : 'border-primary-light'}
             rounded-lg
             py-6
             px-5
@@ -106,12 +110,12 @@ onMounted(() => {
             flex flex-col
             gap-6
             items-center
-          "
+            `"
         >
           <h2 class="text-4xl text-center font-satisfy text-gray-800/80">
             Ucapan & Harapan
           </h2>
-          <Line class="" />
+          <Line class="" :color="color" />
           <div
             v-if="!is_sent_wish"
             class="flex flex-col w-full px-0 md:px-8 gap-6"
@@ -124,12 +128,11 @@ onMounted(() => {
                 id="name"
                 type="text"
                 v-model="form.name"
-                class="
+                :class="`
                   border
                   rounded-md
-                  focus:border-primary-light focus:ring-primary-light
-                  border-primary-light
-                "
+                  ${color === 'terracotta' ? 'focus:border-primary-terracotta focus:ring-primary-terracotta border-primary-terracotta' : 'focus:border-primary-light focus:ring-primary-light border-primary-light'}
+                `"
               />
             </div>
             <div class="flex flex-col gap-2">
@@ -140,25 +143,24 @@ onMounted(() => {
                 name="pesan"
                 id="pesan"
                 v-model="form.message"
-                class="
+                :class="`
                   border
                   rounded-md
-                  focus:border-primary-light focus:ring-primary-light
-                  border-primary-light
-                "
+                  ${color === 'terracotta' ? 'focus:border-primary-terracotta focus:ring-primary-terracotta border-primary-terracotta' : 'focus:border-primary-light focus:ring-primary-light border-primary-light'}
+                `"
               ></textarea>
             </div>
             <h6 :class="{ 'opacity-0' : !errorText}" class="text-red-500 text-sm text-center">{{ errorText }}</h6>
             <div class="cursor-pointer">
               <div @click="sendWish"
-                class="
-                  bg-primary-light
+                :class="`
+                  ${ color === 'terracotta' ? 'bg-primary-terracotta' : 'bg-primary-light'}
                   py-3
                   px-4
                   rounded-lg
                   font-lora
                   text-white text-center
-                "
+                `"
               >
                 Kirim
               </div>
@@ -171,6 +173,7 @@ onMounted(() => {
           </div>
         </div>
         <Line
+          :color="color"
           data-aos="fade-right"
           data-aos-anchor-placement="right-left"
           data-aos-delay="350"
@@ -178,7 +181,7 @@ onMounted(() => {
           data-aos-easing="ease-in-out"
           class="mx-auto px-auto mt-7 inline-block md:hidden"
         />
-        <div class="h-full flex flex-col gap-3">
+        <div class="h-full flex flex-col gap-3 items-center">
           <h2
             data-aos="fade-up"
             data-aos-anchor-placement="top-bottom"
@@ -189,9 +192,9 @@ onMounted(() => {
           >
             Ucapan
           </h2>
-          <Line class="flex-auto mt-3 hidden md:inline-block" />
+          <Line :color="color" class="flex-auto mt-3 hidden md:inline-block" />
           <div
-            class="
+            :class="`
               flex flex-col
               gap-3
               mt-8
@@ -199,27 +202,26 @@ onMounted(() => {
               h-80
               md:h-96
               scrollbar-thin
-              scrollbar-track-primary-light/10
-              scrollbar-thumb-primary-light/80
+              ${color === 'terracotta' ? 'scrollbar-track-primary-terracotta/10 scrollbar-thumb-primary-terracotta/80' : 'scrollbar-track-primary-light/10 scrollbar-thumb-primary-light/80'}
               scrollbar-thumb-rounded-full
-            "
+            `"
           >
             <div
               v-for="(data, index) in wishes"
               :key="index"
-              class="
+              :class="`
                 border
                 bg-white
                 shadow-none
                 transition-all
                 duration-300
                 hover:shadow-lg
-                border-primary-light
+                ${ color === 'terracotta' ? 'border-primary-terracotta' : 'border-primary-light'}
                 px-6
                 py-4
                 rounded-lg
                 flex flex-col
-              "
+              `"
             >
               <h6 class="text-md text-dark/80 font-lora">{{ data.attributes.name }}</h6>
               <h6 class="text-sm text-dark/70 mt-1 font-lora">

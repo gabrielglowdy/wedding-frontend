@@ -1,10 +1,16 @@
 <script setup>
+const props = defineProps({
+  color: {
+    type: String,
+    default: 'primary'
+  }
+})
 import Flower1Alt from './flower/Flower1Alt.vue';
 
 const surah = `"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan diantaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."`;
 </script>
 <template>
-  <div class="px-8 py-24 bg-primary/10 overflow-hidden min-h-screen relative">
+  <div :class="`px-8 py-24 ${color === 'terracotta' ? 'bg-primary-terracotta/10' :  'bg-primary/10'} overflow-hidden min-h-screen relative`">
     <div
       class="
         absolute
@@ -17,7 +23,7 @@ const surah = `"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan 
         h-64
       "
     >
-      <Flower1Alt class="w-full h-full object-scale-down text-primary"/>
+      <Flower1Alt :class="`w-full h-full object-scale-down ${color === 'terracotta' ? 'text-primary-terracotta' :  'text-primary'}`"/>
       <img
         src="~assets/img/flower/flower-1-alt.png"
         class="w-full h-full object-scale-down"
@@ -48,15 +54,15 @@ const surah = `"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan 
           {{ surah }}
         </p>
         <p
-          class="
+          :class="`
             w-full
             text-2xl
             md:text-4xl
             font-moon-dance
             text-center
             break-words
-            text-primary-light
-          "
+            ${color === 'terracotta' ? 'text-primary-terracotta' :  'text-primary-light'}
+          `"
         >
           Ar-Rum Ayat 21
         </p>

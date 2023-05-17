@@ -70,6 +70,7 @@ module.exports = {
       colors: {
         primary:{
           DEFAULT: '#023e8a',
+          terracotta: '#CF735B',
           light: '#023e8a'
         },
         sage: {

@@ -9,7 +9,11 @@ const props = defineProps({
   isPlay: Boolean,
   categories: Array,
   selectedCategory: String,
-  currentCategory: String
+  currentCategory: String,
+  color: {
+    type: String,
+    default: 'primary'
+  }
 });
 
 const isShow = ref(false);
@@ -98,30 +102,32 @@ const selectCategory = (type) => {
               />
             </svg>
           </div>
-          <div>
+          <div class="flex flex-col items-center">
             <h6 class="text-2xl text-center font-lora mb-3">Playlist</h6>
-            <Line class="mb-3" />
+            <Line class="mb-3" :color="color" />
           </div>
           <div class="flex flex-wrap items-center gap-3 mb-3 justify-center">
             <div v-for="(item, index) in categories.filter((item) => item.attributes.slug !== 'mute')" :key="index">
-              <div @click="selectCategory(item.attributes.slug)" :class="`font-lora cursor-pointer text-dark/80 capitalize pb-2 transition-all duration-500 border-b-2 ${selectedCategory === item.attributes.slug ? 'border-primary': 'border-transparent'} `" >{{ item.attributes.name }}</div>
+              <div @click="selectCategory(item.attributes.slug)" :class="`font-lora cursor-pointer text-dark/80 capitalize pb-2 transition-all duration-500 border-b-2 ${selectedCategory === item.attributes.slug ? (color === 'terracotta' ? 'border-primary-terracotta' : 'border-primary'): 'border-transparent'} `" >{{ item.attributes.name }}</div>
             </div>
           </div>
           <div
-            class="
+            :class="`
               flex flex-col flex-auto
               gap-1
               overflow-y-scroll
               mb-6
               scrollbar-thin
-              scrollbar-track-primary/10
-              scrollbar-thumb-primary-light/80
+              ${color ==='terracotta' ? 'scrollbar-track-primary-terracotta/10 scrollbar-thumb-primary-terracotta/80' : 'scrollbar-track-primary/10 scrollbar-thumb-primary-light/80'}
               scrollbar-thumb-rounded-full
-            "
+            `"
           >
             <div
               class="py-2 px-3 rounded-md flex items-center cursor-pointer"
-              :class="{ 'bg-primary/5 shadow-md shadow-primary/5 text-primary': (index == selectedSong && song.category === currentCategory) }"
+              :class="{ 
+                'bg-primary-terracotta/5 shadow-md shadow-primary-terracotta/5 text-primary-terracotta': (index == selectedSong && song.category === currentCategory && color === 'terracotta'), 
+                'bg-primary/5 shadow-md shadow-primary/5 text-primary': (index == selectedSong && song.category === currentCategory && color !== 'terracotta') 
+              }"
               v-for="(song, index) in songs"
               :key="index"
             >
@@ -130,7 +136,8 @@ const selectCategory = (type) => {
                 <h6
                   class="font-lora text-sm"
                   :class="{
-                    'text-primary-light/70': (index == selectedSong && song.category == currentCategory),
+                    'text-primary-terracotta/70': (index == selectedSong && song.category == currentCategory && color === 'terracotta'),
+                    'text-primary-light/70': (index == selectedSong && song.category == currentCategory && color !== 'terracotta'),
                     'text-gray-400': (index != selectedSong || song.category != currentCategory),
                   }"
                 >
@@ -142,33 +149,32 @@ const selectCategory = (type) => {
           <div class="flex gap-3 items-center justify-center">
             <div
               @click="toggleShuffle"
-              class="
+              :class="`
                 cursor-pointer
                 border
                 p-3
                 rounded-full
                 h-12
                 w-12
-                border-primary-light
-                text-primary-light
-              "
+                ${ color === 'terracotta' ? 'border-primary-terracotta text-primary-terracotta' : 'border-primary-light text-primary-light'}
+              `"
             >
               <Shuffle />
               <div
                 v-if="isShuffle"
-                class="w-1 h-1 bg-primary-light mx-auto rounded-full"
+                :class="`w-1 h-1 ${color === 'terracotta' ? 'bg-primary-terracotta' :  'bg-primary-light'} mx-auto rounded-full`"
               ></div>
             </div>
             <div
               @click="togglePlay"
-              class="
+              :class="`
                 h-12
                 w-12
-                text-primary-light
-                border border-primary-light
+                ${color === 'terracotta' ? 'text-primary-terracotta border-primary-terracotta' : 'text-primary-light border-primary-light'}
+                border 
                 cursor-pointer
                 rounded-full
-              "
+              `"
             >
               <span class="h-full flex items-center">
                 <svg
@@ -205,16 +211,15 @@ const selectCategory = (type) => {
             </div>
             <div
               @click="nextPlay"
-              class="
+              :class="`
                 cursor-pointer
                 border
                 p-2
                 rounded-full
                 h-12
                 w-12
-                text-primary-light
-                border-primary-light
-              "
+                ${color === 'terracotta' ? 'text-primary-terracotta border-primary-terracotta' : 'text-primary-light border-primary-light'}
+              `"
             >
               <Next />
             </div>

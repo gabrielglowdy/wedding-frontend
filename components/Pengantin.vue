@@ -5,7 +5,11 @@ const strapi_url = runtimeConfig.public.strapiURL;
 const props = defineProps({
   data: {
     type: Object,
-    defualt: null
+    default: null
+  },
+  color: {
+    type: String,
+    default: 'primary'
   }
 })
 </script>
@@ -25,14 +29,14 @@ const props = defineProps({
       <div class="flex flex-col items-center flex-auto">
         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="relative">
           <div
-            class="
+            :class="`
               overflow-hidden
               w-32
               h-44
               rounded-t-[100px] rounded-b-xl
-              border-2 border-primary-light
+              border-2 ${ color === 'terracotta' ? 'border-primary-terracotta' : 'border-primary-light'}
               p-0.5
-            "
+            `"
           >
             <img
               :src="strapi_url + data.bride_photo.data.attributes.url"
@@ -54,14 +58,14 @@ const props = defineProps({
         </div>
         <h6
           data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="700" data-aos-easing="ease-in-out"
-          class="
+          :class="`
             mt-6
             font-medium
             text-center
             font-satisfy
-            text-primary-light text-3xl
+            ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'} text-3xl
             md:text-4xl
-          "
+          `"
         >
           {{ data.bride }}
         </h6>
@@ -84,18 +88,18 @@ const props = defineProps({
           ({{ data.bride_address }})
         </h6>
       </div>
-      <h6 data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" class="text-4xl font-satisfy mt-2 text-primary-light w-full text-center md:w-36">&</h6>
+      <h6 data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" :class="`text-4xl font-satisfy mt-2 ${color==='terracotta' ? 'text-primary-terracotta' : 'text-primary-light'} w-full text-center md:w-36`">&</h6>
       <div class="flex flex-col items-center flex-auto">
         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-easing="ease-in-out" class="relative">
           <div
-            class="
+            :class="`
               overflow-hidden
               w-32
               h-44
               rounded-t-[100px] rounded-b-xl
-              border-2 border-primary-light
+              border-2 ${color === 'terracotta' ? 'border-primary-terracotta' : 'border-primary-light'}
               p-0.5
-            "
+            `"
           >
             <img
               :src="strapi_url + data.groom_photo.data.attributes.url"
@@ -117,12 +121,12 @@ const props = defineProps({
         </div>
         <h6
           data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-easing="ease-in-out"
-          class="
+          :class="`
             mt-6
             font-medium font-satisfy
-            text-primary-light text-center text-3xl
+            ${ color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'} text-center text-3xl
             md:text-4xl
-          "
+          `"
         >
           {{ data.groom }}
         </h6>

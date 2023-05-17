@@ -3,7 +3,6 @@ import Flower10 from './flower/Flower10.vue';
 import Flower13 from './flower/Flower13.vue';
 
 const runtimeConfig = useRuntimeConfig();
-const strapi_url = runtimeConfig.public.strapiURL
 
 const nuxtApp = useNuxtApp();
 const dayjs = nuxtApp.dayjs
@@ -15,6 +14,18 @@ const props = defineProps({
   },
   guest: {
     type: Object
+  },
+  color: {
+    type: String,
+    default: 'primary'
+  },
+  title : {
+    type: String,
+    default : 'acara pernikahan'
+  },
+  eventType : {
+    type: String,
+    default : 'akad'
   }
 });
 
@@ -30,12 +41,12 @@ const getHour = (hour_string) => {
 <template>
   <div class="relative">
     <div class="absolute -left-8 top-64">
-      <Flower13 class="h-56 object-scale-down mt-12 text-primary" />
+      <Flower13 :class="`h-56 object-scale-down mt-12 ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary'}`" />
     </div>
     <div class="absolute -right-2 top-96">
-      <Flower10 class="h-56 object-scale-down mt-12 text-primary" />
+      <Flower10 :class="`h-56 object-scale-down mt-12 ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary'}`" />
     </div>
-    <div class="py-16 bg-primary/5">
+    <div :class="`py-16 ${color === 'terracotta' ? 'bg-primary-terracotta/5' : 'bg-primary/5'}`">
       <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="300" class="
               text-center
               font-medium font-moon-dance
@@ -58,14 +69,14 @@ const getHour = (hour_string) => {
               px-6
             ">
         Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud untuk
-        mengundang Bapak/Ibu/Sauadara/i untuk hadir pada acara pernikahan kami
+        mengundang Bapak/Ibu/Sauadara/i untuk hadir pada {{ title }} kami
         yang insya Allah akan dilaksanakan pada:
       </h6>
     </div>
     <div class=""></div>
     <div class="relative px-4 py-16 lg:px-36">
       <div class="flex flex-col lg:grid lg:grid-cols-3 gap-3 items-center">
-        <Line data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="250" data-aos-duration="600"
+        <Line :color="color" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="250" data-aos-duration="600"
           data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
         <div class="flex flex-col items-center gap-3">
           <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="600"
@@ -73,35 +84,35 @@ const getHour = (hour_string) => {
             {{ dayjs(data?.akad_date).format("dddd") }}
           </h6>
           <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="600"
-            data-aos-easing="ease-in-out" class="text-4xl font-satisfy text-primary-light">
+            data-aos-easing="ease-in-out" :class="`text-4xl font-satisfy ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">
             {{ dayjs(data?.akad_date).format("DD MMMM YYYY") }}
           </h6>
         </div>
-        <Line data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="850" data-aos-duration="500"
+        <Line :color="color" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="850" data-aos-duration="500"
           data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
         <div class="flex-auto flex flex-col items-center gap-3">
           <div v-if="guest?.invite_akad" class="flex flex-col items-center gap-3">
             <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500"
               data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-3 text-gray-800/80">
-              Akad Nikah
+              {{ (eventType == 'akad' ? 'Akad Nikah' : 'Sesi 1') }}
             </h6>
             <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="500"
-              data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-primary-light">
+              data-aos-easing="ease-in-out" :class="`text-3xl font-satisfy ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">
               {{ getHour(data?.akad_start) }} - {{ getHour(data?.akad_end) }}
             </h6>
           </div>
           <div v-if="guest?.invite_reception" class="flex flex-col items-center gap-3">
             <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="500"
               data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-8 text-gray-800/80">
-              Resepsi
+              {{ (eventType == 'akad' ? 'Resepsi' : 'Sesi 2') }}
             </h6>
             <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="850" data-aos-duration="500"
-              data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-primary-light">
+              data-aos-easing="ease-in-out" :class="`text-3xl font-satisfy ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">
               {{ getHour(data?.reception_start) }} - {{ getHour(data?.reception_end) }}
             </h6>
           </div>
         </div>
-        <Line data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500"
+        <Line :color="color" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500"
           data-aos-easing="ease-in-out" class="lg:hidden inline-block" />
         <div class="flex flex-col items-center gap-3 text-center">
           <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="500"
@@ -109,7 +120,7 @@ const getHour = (hour_string) => {
             Tempat
           </h6>
           <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="500"
-            data-aos-easing="ease-in-out" class="text-3xl font-satisfy text-primary-light">
+            data-aos-easing="ease-in-out" :class="`text-3xl font-satisfy ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">
             {{ data.place }}
           </h6>
           <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="750" data-aos-duration="500"
@@ -120,8 +131,8 @@ const getHour = (hour_string) => {
       </div>
       <div class="flex items-center w-full flex-col mt-8">
         <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="150" data-aos-duration="750"
-          data-aos-easing="ease-in-out" :href="data.place_url" class="
-                bg-primary-light
+          data-aos-easing="ease-in-out" :href="data.place_url" :class="`
+                ${color === 'terracotta' ? 'bg-primary-terracotta' : 'bg-primary-light'}
                 py-3
                 px-6
                 rounded-full
@@ -129,7 +140,7 @@ const getHour = (hour_string) => {
                 text-xl text-white
                 font-lora
                 mx-auto
-              ">
+              `">
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6 inline">

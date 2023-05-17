@@ -3,13 +3,17 @@ const props = defineProps({
   data: {
     type: Object,
     defualt: null
-  }
+  },
+  color: {
+    type: String,
+    default: 'primary'
+  },
 })
 </script>
 <template>
   <div>
     <div class="relative w-full h-screen p-8 bg-gray-800">
-      <div class="absolute inset-0 bg-primary-light/30">
+      <div :class="`absolute inset-0 ${color==='terracotta' ? 'bg-primary-terracotta/30' : 'bg-primary-light/30'}`">
         <video
           class="w-full h-full object-cover opacity-20"
           autoplay
@@ -17,7 +21,8 @@ const props = defineProps({
           muted
           loop
         >
-          <source src="~assets/video/video-9.mp4" type="video/mp4" />
+          <source v-if="color==='primary'" src="~assets/video/video-9.mp4" type="video/mp4" />
+          <source v-else src="~assets/video/video-6.mp4" type="video/mp4" />
         </video>
       </div>
       <div class="relative">
