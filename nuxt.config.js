@@ -3,11 +3,11 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-16',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'The Wedding of Lilla & Gabriel',
+      title: 'Undangan Acara Syukuran Lilla & Gabriel',
       meta: [
         // <meta name="description" content="My amazing site">
-        { name: 'description', content: 'Undangan Pernikahan Lilla & Gabriel' },
-        { name: 'og:description', content: 'Undangan Pernikahan Lilla & Gabriel' },
+        { name: 'description', content: 'Undangan Acara Syukuran Lilla & Gabriel' },
+        { name: 'og:description', content: 'Undangan Acara Syukuran Lilla & Gabriel' },
         { name: 'og:image', content: 'https://content.lillagabriel.com/uploads/MSA_5733_a612dcb10b.JPG?updated_at=2023-05-03T15:33:24.411Z'  },
         { name: 'twitter:card', content: `summary_large_image` },
       ],
@@ -64,7 +64,7 @@ export default defineNuxtConfig({
       strapi_token: process.env.STRAPI_TOKEN || ''
     }
   },
-  ssr: true,
+  ssr: false,
   // static: true,
 
   css: ['~/assets/css/main.css'],
