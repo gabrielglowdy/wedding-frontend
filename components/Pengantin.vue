@@ -10,6 +10,10 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary'
+  },
+  swap: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
@@ -39,7 +43,7 @@ const props = defineProps({
             `"
           >
             <img
-              :src="strapi_url + data.bride_photo.data.attributes.url"
+              :src="strapi_url + (swap ? data.groom_photo : data.bride_photo).data.attributes.url"
               class="w-full h-full object-cover scale-125"
               alt=""
               srcset=""
@@ -67,25 +71,25 @@ const props = defineProps({
             md:text-4xl
           `"
         >
-          {{ data.bride }}
+          {{ swap ? data.groom : data.bride }}
         </h6>
         <h6
           data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-delay="550" data-aos-duration="600" data-aos-easing="ease-in-out"
           class="text-sm md:text-md mt-1 px-4 md:px-12 text-center font-lora"
         >
-          {{ data.bride_label }} {{ data.father_label }} {{ data.bride_father }}
+          {{ swap ? data.groom_label : data.bride_label }} {{ data.father_label }} {{ swap ? data.groom_father : data.bride_father }}
         </h6>
         <h6
           data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="650" data-aos-easing="ease-in-out"
           class="text-sm md:text-md px-4 md:px-12 text-center font-lora"
         >
-          & {{ data.mother_label }} {{ data.bride_mother }}
+          & {{ data.mother_label }} {{ swap ? data.groom_mother : data.bride_mother }}
         </h6>
         <h6
           data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="750" data-aos-duration="650" data-aos-easing="ease-in-out"
           class="text-xs mt-1 md:text-md italic text-center font-lora"
         >
-          ({{ data.bride_address }})
+          ({{ swap ? data.groom_address : data.bride_address }})
         </h6>
       </div>
       <h6 data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500" data-aos-easing="ease-in-out" :class="`text-4xl font-satisfy mt-2 ${color==='terracotta' ? 'text-primary-terracotta' : 'text-primary-light'} w-full text-center md:w-36`">&</h6>
@@ -102,7 +106,7 @@ const props = defineProps({
             `"
           >
             <img
-              :src="strapi_url + data.groom_photo.data.attributes.url"
+              :src="strapi_url + (swap ? data.bride_photo : data.groom_photo).data.attributes.url"
               class="w-full h-full object-cover scale-125"
               alt=""
               srcset=""
@@ -128,27 +132,27 @@ const props = defineProps({
             md:text-4xl
           `"
         >
-          {{ data.groom }}
+          {{ swap ? data.bride : data.groom }}
         </h6>
         <div class="">
           <h6
             data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-delay="550" data-aos-duration="650" data-aos-easing="ease-in-out"
             class="text-sm md:text-md mt-1 md:px-12 text-center font-lora"
           >
-            {{ data.groom_label }} {{ data.father_label }} {{ data.groom_father }}
+            {{ swap ? data.bride_label : data.groom_label }} {{ data.father_label }} {{ swap ? data.bride_father : data.groom_father }}
           </h6>
           <h6
             data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="750" data-aos-easing="ease-in-out"
             class="text-sm md:text-md px-4 md:px-12 text-center font-lora"
           >
-            & {{ data.mother_label }} {{ data.groom_mother }}
+            & {{ data.mother_label }} {{ swap ? data.bride_mother : data.groom_mother }}
           </h6>
         </div>
         <h6
           data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="750" data-aos-duration="850" data-aos-easing="ease-in-out"
           class="text-xs mt-1 md:text-md italic text-center font-lora"
         >
-          ({{ data.groom_address }})
+          ({{ swap ? data.bride_address : data.groom_address }})
         </h6>
       </div>
     </div>

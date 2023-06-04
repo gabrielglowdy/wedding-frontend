@@ -13,7 +13,7 @@ const props = defineProps({
       viewBox="0 0 411 11"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      :class="`${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light mx-auto w-full max-w-lg'}`"
+      :class="`${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'} mx-auto w-full max-w-lg`"
     >
       <circle cx="205.5" cy="5.5" r="5" stroke="currentColor" />
       <path

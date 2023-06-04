@@ -60,7 +60,7 @@ onMounted(() => {
 <template>
   <div class="relative w-screen h-screen bg-gray-900">
     <div class="w-full h-full bg-gray-900">
-      <div :class="{ 'opacity-0': playVideo }" class="absolute inset-0">
+      <div :class="{ 'opacity-0': playVideo }" class="hidden absolute inset-0">
         <img
           src="~assets/img/bg-2.jpg"
           class="

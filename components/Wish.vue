@@ -167,7 +167,7 @@ onMounted(() => {
             </div>
           </div>
           <div v-else>
-            <h6 class="font-lora text-gray-800/80">
+            <h6 class="font-lora text-gray-800/80 text-center md:text-left">
               Terima kasih atas ucapan dan harapan yang telah Anda kirimkan :)
             </h6>
           </div>

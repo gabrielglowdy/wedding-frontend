@@ -326,9 +326,9 @@ const timerStart = () => {
 }
 
 useHead({
-  title: 'Undangan Syukuran Lilla & Gabriel untuk ' + invitation.value.name,
+  title: 'Undangan Acara Syukuran Lilla & Gabriel untuk ' + invitation.value.name,
   meta: [
-    { property: 'og:title', content: `Undangan Syukuran Lilla & Gabriel untuk ${invitation.value.name}` },
+    { property: 'og:title', content: `UndanganA Acara Syukuran Lilla & Gabriel untuk ${invitation.value.name}` },
     { property: 'description', content: `Undangan untuk ${invitation.value.name}` },
     { property: 'og:description', content: `Undangan untuk ${invitation.value.name}` },
     { property: 'og:image', content: thumbnail_url },
@@ -337,8 +337,8 @@ useHead({
 })
 
 useServerSeoMeta({
-  title: 'Undangan Syukuran Lilla & Gabriel untuk ' + invitation.value.name,
-  ogTitle: 'Undangan Syukuran Lilla & Gabriel untuk ' + invitation.value.name,
+  title: 'Undangan Acara Syukuran Lilla & Gabriel untuk ' + invitation.value.name,
+  ogTitle: 'Undangan Acara Syukuran Lilla & Gabriel untuk ' + invitation.value.name,
   description: 'Undangan untuk ' + invitation.value.name,
   ogDescription: 'Undangan untuk ' + invitation.value.name,
   ogImage: thumbnail_url,
@@ -356,13 +356,13 @@ useServerSeoMeta({
       <div v-if="openCover" ref="opening" class="flex flex-col overflow-hidden">
         <OpeningSyukuran :guest="invitation" />
         <Surah :color="colorTheme" />
-        <Pengantin :data="detail" :color="colorTheme" />
+        <Pengantin :data="detail" :color="colorTheme" :swap="true" />
         <Place :data="detail" :guest="selectedGuest.attributes" :color="colorTheme" title="acara syukuran" event-type="syukuran"/>
         <Photo :photos="detail?.photos?.data" :big-photos="detail?.big_photos?.data" />
         <Date date="10 Jun 2023 11:00:00 GMT+7" :color="colorTheme" />
         <Wish :color="colorTheme" @toast="showToast" :name="invitation.name" :slug="invitation.slug"
           :is_sent="selectedGuest.attributes.is_sent_wish" @send="onSendWish" />
-        <Closing :data="detail" :color="colorTheme" />
+        <Closing :data="detail" :color="colorTheme" :swap="true" />
         <Watermark :color="colorTheme" />
       </div>
       <div class="fixed bottom-12 z-40 right-3">

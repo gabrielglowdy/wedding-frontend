@@ -64,7 +64,7 @@ export default defineNuxtConfig({
       strapi_token: process.env.STRAPI_TOKEN || ''
     }
   },
-  ssr: false,
+  ssr: true,
   // static: true,
 
   css: ['~/assets/css/main.css'],

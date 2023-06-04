@@ -8,6 +8,10 @@ const props = defineProps({
     type: String,
     default: 'primary'
   },
+  swap: {
+    type: Boolean,
+    default: false
+  },
 })
 </script>
 <template>
@@ -22,7 +26,7 @@ const props = defineProps({
           loop
         >
           <source v-if="color==='primary'" src="~assets/video/video-9.mp4" type="video/mp4" />
-          <source v-else src="~assets/video/video-6.mp4" type="video/mp4" />
+          <source v-else src="~assets/video/video-prewed.mp4" type="video/mp4" />
         </video>
       </div>
       <div class="relative">
@@ -46,19 +50,19 @@ const props = defineProps({
 
           <div>
             <p class="mt-8 text-sm md:text-xl font-lora px-2 md:px-8">
-              Keluarga {{ data.father_label }} {{ data.bride_father }} &
+              Keluarga {{ data.father_label }} {{ swap ? data.groom_father : data.bride_father }} &
             </p>
             <p class="text-sm md:text-xl font-lora px-16">
-              {{ data.mother_label }} {{ data.bride_mother }}
+              {{ data.mother_label }} {{ swap ? data.groom_mother : data.bride_mother }}
             </p>
           </div>
           <p class="my-1 md:my-3 text-4xl font-lora">&</p>
           <div>
             <p class="text-sm md:text-xl font-lora md:px-8">
-              Keluarga {{ data.father_label }} {{ data.groom_father }} &
+              Keluarga {{ data.father_label }} {{ swap ? data.bride_father : data.groom_father }} &
             </p>
             <p class="text-sm md:text-xl font-lora px-16">
-              {{ data.mother_label }} {{ data.groom_mother }}
+              {{ data.mother_label }} {{ swap ? data.bride_mother : data.groom_mother }}
             </p>
           </div>
           <div>

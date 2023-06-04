@@ -1,13 +1,9 @@
-const { login } = useStrapiAuth();
-const token = useStrapiToken();
-const runtimeConfig = useRuntimeConfig();
-const router = useRouter();
-
-const loginAuth = async (to) => {
-  const res = await login({ identifier: runtimeConfig.public.user, password: runtimeConfig.public.code });
-};
 export default defineNuxtRouteMiddleware(async (to, from) => {
+  const token = useStrapiToken();
+  const { login } = useStrapiAuth();
+  
   if (!token.value) {
-    loginAuth()
+    const runtimeConfig = useRuntimeConfig();
+    const res = await login({ identifier: runtimeConfig.public.user, password: runtimeConfig.public.code })
   }
 })

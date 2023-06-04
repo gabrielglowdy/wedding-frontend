@@ -94,7 +94,7 @@ const getHour = (hour_string) => {
           <div v-if="guest?.invite_akad" class="flex flex-col items-center gap-3">
             <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="350" data-aos-duration="500"
               data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-3 text-gray-800/80">
-              {{ (eventType == 'akad' ? 'Akad Nikah' : 'Sesi 1') }}
+              {{ (eventType == 'akad' ? 'Akad Nikah' : (guest?.invite_akad ? 'Sesi 1' : 'Waktu')) }}
             </h6>
             <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="450" data-aos-duration="500"
               data-aos-easing="ease-in-out" :class="`text-3xl font-satisfy ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">
@@ -104,7 +104,7 @@ const getHour = (hour_string) => {
           <div v-if="guest?.invite_reception" class="flex flex-col items-center gap-3">
             <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="650" data-aos-duration="500"
               data-aos-easing="ease-in-out" class="text-2xl font-satisfy mt-8 text-gray-800/80">
-              {{ (eventType == 'akad' ? 'Resepsi' : 'Sesi 2') }}
+              {{ (eventType == 'akad' ? 'Resepsi' : (guest?.invite_akad ? 'Sesi 2' : 'Waktu')) }}
             </h6>
             <h6 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="850" data-aos-duration="500"
               data-aos-easing="ease-in-out" :class="`text-3xl font-satisfy ${color === 'terracotta' ? 'text-primary-terracotta' : 'text-primary-light'}`">
